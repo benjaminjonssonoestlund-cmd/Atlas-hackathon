@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+atlas_choke/data/cache.db*
+atlas_choke/data/ais_snapshot.json
+atlas_choke/data/health.json
+atlas_choke/data/live_history.json
+.env
+vessel_seen.json
+atlas_choke/data/_sar_work/

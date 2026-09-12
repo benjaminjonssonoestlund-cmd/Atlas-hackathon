@@ -1,0 +1,124 @@
+{
+  "_doc": "Kurerade chokepoints. portwatch = exakt portname i IMF PortWatch Daily_Chokepoints_Data. instruments = Yahoo-tickers vars pris kanalen påverkar (transmissionslogik i note). oil_share_pct/trade_note ärvda från atlas-earth.",
+  "chokepoints": [
+    {
+      "id": "hormuz", "name": "Hormuzsundet", "portwatch": "Strait of Hormuz",
+      "lat": 26.57, "lon": 56.25, "oil_share_pct": 27,
+      "trade_note": "~1/3 av all sjöburen olja + stora LNG-volymer (Qatar). Ingen fullgod alternativ rutt.",
+      "watch": "Iran-spänningar, tanksäkerhet",
+      "instruments": [
+        {"symbol": "BZ=F", "name": "Brent-olja", "why": "1/3 av sjöburen olja passerar — störning stryper utbudet direkt"},
+        {"symbol": "NG=F", "name": "Naturgas (HH)", "why": "Qatars LNG-export har ingen alternativ rutt"},
+        {"symbol": "XLE", "name": "Energisektorn (ETF)", "why": "producenter utanför Gulfen vinner på riskpremien"}
+      ]
+    },
+    {
+      "id": "suez", "name": "Suezkanalen", "portwatch": "Suez Canal",
+      "lat": 30.42, "lon": 32.35, "oil_share_pct": 10,
+      "trade_note": "~12-15 % av världshandeln, Europa-Asien-genvägen. Blockad → Godahoppsudden (+10-14 dygn).",
+      "watch": "Grundstötningar, regional konflikt",
+      "instruments": [
+        {"symbol": "BDRY", "name": "Torrlastfrakt (ETF)", "why": "omväg runt Afrika binder tonnage → fraktrater upp"},
+        {"symbol": "BOAT", "name": "Shipping (ETF)", "why": "rederier prisar om när kapacitet försvinner ur marknaden"},
+        {"symbol": "BZ=F", "name": "Brent-olja", "why": "olje- och produkttankers mot Europa försenas"}
+      ]
+    },
+    {
+      "id": "bab-el-mandeb", "name": "Bab-el-Mandeb", "portwatch": "Bab el-Mandeb Strait",
+      "lat": 12.6, "lon": 43.4, "oil_share_pct": 9,
+      "trade_note": "Röda havets södra port till Suez. Houthi-attacker har tvingat om rederier runt Afrika.",
+      "watch": "Houthi-attacker, Jemen",
+      "instruments": [
+        {"symbol": "BOAT", "name": "Shipping (ETF)", "why": "attackrisk → försäkringspremier + omdirigering gynnar rederiers rater"},
+        {"symbol": "BDRY", "name": "Torrlastfrakt (ETF)", "why": "längre rutter binder torrlasttonnage"},
+        {"symbol": "BZ=F", "name": "Brent-olja", "why": "tankertrafiken mot Suez går samma väg"}
+      ]
+    },
+    {
+      "id": "malacca", "name": "Malackasundet", "portwatch": "Malacca Strait",
+      "lat": 2.5, "lon": 101.3, "oil_share_pct": 25,
+      "trade_note": "~25 % av världens handlade varor; Kinas viktigaste oljeimportrutt från Mellanöstern.",
+      "watch": "Kina-USA-spänning, piratdåd",
+      "instruments": [
+        {"symbol": "BZ=F", "name": "Brent-olja", "why": "Kinas oljeimport från Gulfen passerar här"},
+        {"symbol": "BOAT", "name": "Shipping (ETF)", "why": "containertrafiken Asien-Europa startar här"},
+        {"symbol": "FXI", "name": "Kina large-cap (ETF)", "why": "Kinas import-/exportmaskin är direkt exponerad"}
+      ]
+    },
+    {
+      "id": "panama", "name": "Panamakanalen", "portwatch": "Panama Canal",
+      "lat": 9.1, "lon": -79.68, "oil_share_pct": 3,
+      "trade_note": "~5 % av världens sjöhandel; USA öst-Asien. Torka sänker vattennivån → färre/lättare fartyg.",
+      "watch": "Torka (Gatúnsjöns nivå), djupgåendebegränsningar",
+      "instruments": [
+        {"symbol": "ZC=F", "name": "Majs", "why": "US-spannmål till Asien tar kanalen — begränsning fördyrar exporten"},
+        {"symbol": "ZS=F", "name": "Sojabönor", "why": "samma exportrutt US Gulf → Asien"},
+        {"symbol": "NG=F", "name": "Naturgas (HH)", "why": "US LNG till Asien prioriteras bort vid slotbrist"},
+        {"symbol": "BDRY", "name": "Torrlastfrakt (ETF)", "why": "väntetider + omvägar binder tonnage"}
+      ]
+    },
+    {
+      "id": "bosporus", "name": "Turkiska sunden (Bosporen)", "portwatch": "Bosporus Strait",
+      "lat": 41.1, "lon": 29.07, "oil_share_pct": 3,
+      "trade_note": "Enda utfart för rysk & kazakisk olja + ukrainskt/ryskt spannmål ur Svarta havet.",
+      "watch": "Ukraina-kriget, spannmålskorridor",
+      "instruments": [
+        {"symbol": "ZW=F", "name": "Vete", "why": "Svartahavsspannmålens enda sjöväg ut"},
+        {"symbol": "ZC=F", "name": "Majs", "why": "ukrainsk majsexport går samma korridor"},
+        {"symbol": "BZ=F", "name": "Brent-olja", "why": "rysk/kazakisk råolja ur Novorossijsk"}
+      ]
+    },
+    {
+      "id": "danish-straits", "name": "Danska sunden (Öresund)", "portwatch": "Oresund Strait",
+      "lat": 55.7, "lon": 12.7, "oil_share_pct": 3,
+      "trade_note": "Rysk oljeexport från Östersjön (Primorsk/Ust-Luga) till världsmarknaden.",
+      "watch": "Sanktioner, skuggflottan",
+      "instruments": [
+        {"symbol": "BZ=F", "name": "Brent-olja", "why": "rysk Östersjöexport når världsmarknaden här"},
+        {"symbol": "TTF=F", "name": "Gas EU (TTF)", "why": "energiflödesstörning i Nordeuropa smittar gaspriset"}
+      ]
+    },
+    {
+      "id": "gibraltar", "name": "Gibraltar sund", "portwatch": "Gibraltar Strait",
+      "lat": 35.96, "lon": -5.5, "oil_share_pct": 0,
+      "trade_note": "Medelhavet↔Atlanten. Port för europeisk import och Medelhavsraffinaderier.",
+      "watch": "Marinnärvaro, migration",
+      "instruments": [
+        {"symbol": "BZ=F", "name": "Brent-olja", "why": "Medelhavsraffinaderiernas råoljeimport"},
+        {"symbol": "BOAT", "name": "Shipping (ETF)", "why": "europeisk containerimport västerifrån"}
+      ]
+    },
+    {
+      "id": "taiwan-strait", "name": "Taiwansundet", "portwatch": "Taiwan Strait",
+      "lat": 24.4, "lon": 119.5, "oil_share_pct": 0,
+      "trade_note": "En mycket stor andel av världens containertrafik passerar; hjärtat i halvledarleveranskedjan.",
+      "watch": "Kina-Taiwan-spänning — systemrisk för teknik",
+      "instruments": [
+        {"symbol": "SMH", "name": "Halvledare (ETF)", "why": "TSMC:s leveranskedja är direkt exponerad"},
+        {"symbol": "TSM", "name": "TSMC (ADR)", "why": "världens viktigaste chipfabrik ligger vid sundet"},
+        {"symbol": "FXI", "name": "Kina large-cap (ETF)", "why": "eskalering prisas först i kinesiska tillgångar"}
+      ]
+    },
+    {
+      "id": "dover", "name": "Engelska kanalen (Dover)", "portwatch": "Dover Strait",
+      "lat": 50.9, "lon": 1.4, "oil_share_pct": 0,
+      "trade_note": "Världens mest trafikerade sjöfartsled; Nordsjön↔Atlanten, Nordeuropas hamnar.",
+      "watch": "Trängsel, väder",
+      "instruments": [
+        {"symbol": "BOAT", "name": "Shipping (ETF)", "why": "Rotterdam/Antwerpen/Hamburg-trafikens gemensamma nål"},
+        {"symbol": "TTF=F", "name": "Gas EU (TTF)", "why": "LNG-import till NV-Europa passerar kanalen"}
+      ]
+    },
+    {
+      "id": "cape-good-hope", "name": "Godahoppsudden", "portwatch": "Cape of Good Hope",
+      "lat": -34.36, "lon": 18.47, "oil_share_pct": 0,
+      "trade_note": "Omdirigeringspunkten när Suez/Bab-el-Mandeb undviks — STIGANDE trafik här är stressignalen.",
+      "watch": "Suez-/Rödahavsstörningar spiller hit",
+      "inverse": true,
+      "instruments": [
+        {"symbol": "BDRY", "name": "Torrlastfrakt (ETF)", "why": "omvägstrafik = bunden kapacitet = högre rater"},
+        {"symbol": "BOAT", "name": "Shipping (ETF)", "why": "bekräftar att omdirigeringen faktiskt sker"}
+      ]
+    }
+  ]
+}

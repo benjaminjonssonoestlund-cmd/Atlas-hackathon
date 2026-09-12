@@ -1,0 +1,114 @@
+/* Atlas Chokepoint — tillägg ovanpå atlas-earths bas-stylesheet. */
+
+/* Ranking i sidopanelen */
+.rank-row { display: flex; align-items: center; gap: 8px; padding: 5px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05); cursor: pointer; }
+.rank-row:hover { background: rgba(0, 255, 200, 0.06); }
+.rank-row .r-name { flex: 1; font-size: 12.5px; color: var(--text);
+  overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.rank-row .r-score { font-family: var(--font-mono); font-size: 12px; width: 38px;
+  text-align: right; }
+.rank-row .r-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.rank-row .r-tag { font-size: 9px; letter-spacing: 1px; padding: 1px 5px;
+  border-radius: 2px; flex-shrink: 0; }
+.lvl-normal   { color: var(--green); }
+.lvl-elevated { color: #ffb454; }
+.lvl-severe   { color: var(--red); }
+.tag-ongoing { background: rgba(255, 77, 77, 0.16); color: var(--red);
+  border: 1px solid rgba(255, 77, 77, 0.4); }
+.tag-inverse { background: rgba(102, 182, 255, 0.12); color: #66b6ff;
+  border: 1px solid rgba(102, 182, 255, 0.35); }
+.tag-anchor { background: rgba(255, 180, 84, 0.1); color: #ffb454;
+  border: 1px solid rgba(255, 180, 84, 0.35); }
+
+/* Stressmätare i detaljpanelen */
+.gauge-wrap { margin: 10px 0 4px; }
+.gauge-bar { height: 7px; background: rgba(255, 255, 255, 0.07); border-radius: 3px;
+  overflow: hidden; }
+.gauge-fill { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
+.gauge-meta { display: flex; justify-content: space-between; font-size: 10.5px;
+  color: var(--dim); margin-top: 3px; font-family: var(--font-mono); }
+.big-score { font-size: 34px; font-weight: 700; font-family: var(--font-mono); }
+.big-score small { font-size: 13px; color: var(--dim); font-weight: 500; }
+
+/* Sparkline */
+.spark-canvas { width: 100%; height: 74px; display: block; margin-top: 4px; }
+.spark-cap { font-size: 10px; color: var(--dim); font-family: var(--font-mono);
+  display: flex; justify-content: space-between; }
+
+/* Episodlista */
+.ep-row { display: flex; gap: 8px; align-items: baseline; padding: 4px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; }
+.ep-row .e-date { font-family: var(--font-mono); font-size: 11px; color: var(--dim);
+  flex-shrink: 0; }
+.ep-row .e-label { flex: 1; color: var(--text); }
+.ep-row .e-z { font-family: var(--font-mono); font-size: 11px; color: #ffb454; }
+.ep-row.ongoing .e-label { color: var(--red); font-weight: 600; }
+
+/* Prognostabell */
+.fc-note { font-size: 11px; color: var(--dim); line-height: 1.45; margin: 6px 0;
+  border-left: 2px solid var(--border); padding-left: 8px; }
+.fc-note.active { border-left-color: var(--red); color: #d8b0b0; }
+.fc-inst { margin: 10px 0 2px; }
+.fc-head { display: flex; align-items: baseline; gap: 8px; }
+.fc-head .f-sym { font-family: var(--font-mono); font-size: 12px; color: var(--accent); }
+.fc-head .f-name { font-size: 12px; color: var(--text); flex: 1; }
+.fc-head .f-quote { font-family: var(--font-mono); font-size: 11.5px; }
+.fc-why { font-size: 10.5px; color: var(--dim); margin: 2px 0 4px; }
+.fc-grid { width: 100%; border-collapse: collapse; font-size: 11px;
+  font-family: var(--font-mono); }
+.fc-grid th { text-align: right; color: var(--dim); font-weight: 500; padding: 2px 0;
+  font-size: 10px; }
+.fc-grid th:first-child, .fc-grid td:first-child { text-align: left; color: var(--dim); }
+.fc-grid td { text-align: right; padding: 2px 0 2px 10px; }
+.fc-grid .edge-pos { color: var(--green); font-weight: 700; }
+.fc-grid .edge-neg { color: var(--red); font-weight: 700; }
+.conf-tag { font-size: 9px; letter-spacing: 1px; padding: 1px 5px; border-radius: 2px;
+  border: 1px solid var(--border); color: var(--dim); }
+.conf-tag.weak { border-color: rgba(255, 180, 84, 0.4); color: #ffb454; }
+
+/* Faktarad */
+.fact-kinds { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; }
+.fact-kinds span { border: 1px solid var(--border); border-radius: 3px;
+  padding: 1px 7px; font-size: 10.5px; color: var(--dim); }
+
+/* Färgklasser även utanför #ticker (detaljpanelens citat) */
+.up { color: var(--green); }
+.down { color: var(--red); }
+
+/* Drivande fartyg → råvaror */
+.drift-note { font-size: 11px; color: #d8c4a8; line-height: 1.4; margin: 3px 0 7px;
+  border-left: 2px solid rgba(180, 107, 255, 0.5); padding-left: 8px; }
+
+/* Tidsmaskin, scenario och IDAG-brief */
+#topbar button { background: transparent; border: 1px solid var(--border);
+  color: var(--accent); font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 1.5px; padding: 4px 10px; border-radius: 3px; cursor: pointer; }
+#topbar button:hover { background: rgba(0, 255, 200, 0.12); border-color: var(--accent); }
+
+#replay-bar { position: absolute; top: 54px; left: 50%; transform: translateX(-50%);
+  z-index: 40; display: flex; align-items: center; gap: 10px;
+  background: rgba(5, 10, 14, 0.94); border: 1px solid var(--accent);
+  border-radius: 4px; padding: 7px 12px; box-shadow: 0 0 22px rgba(0, 255, 200, 0.25); }
+#replay-bar.hidden { display: none; }
+#replay-bar button { background: none; border: none; color: var(--accent);
+  cursor: pointer; font-size: 13px; }
+.replay-track { width: 320px; height: 5px; background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px; overflow: hidden; }
+#replay-fill { height: 100%; width: 0%; background: var(--accent);
+  box-shadow: 0 0 10px var(--accent); transition: width 0.1s linear; }
+#replay-date { font-family: var(--font-mono); font-size: 12px; color: #fff; min-width: 82px; }
+#replay-event { font-size: 12px; color: #ffb454; font-weight: 600; min-width: 260px; }
+
+#brief-overlay { position: fixed; inset: 0; z-index: 60; background: rgba(2, 5, 10, 0.82);
+  display: flex; align-items: center; justify-content: center; }
+#brief-overlay.hidden { display: none; }
+#brief-panel { position: relative; width: min(680px, 92vw); max-height: 84vh;
+  overflow-y: auto; background: var(--panel2); border: 1px solid var(--accent);
+  border-radius: 5px; padding: 22px 26px; box-shadow: 0 0 40px rgba(0, 255, 200, 0.2); }
+#brief-close { position: absolute; top: 8px; right: 12px; background: none;
+  border: none; color: var(--dim); font-size: 22px; cursor: pointer; }
+#brief-panel h2 { margin: 0 0 4px; font-size: 19px; color: #fff; }
+#brief-panel h4 { margin: 16px 0 5px; font-size: 10.5px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--accent); }
+.brief-row { font-size: 13px; padding: 3px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }

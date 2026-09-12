@@ -1,0 +1,539 @@
+{
+  "_doc": "Cachepolicy per datakälla — REN DATA. Motorn i cache.py innehåller ingen kännedom om enskilda källor; den slår upp nyckelns prefix här. Ny källa = ny rad, ingen kod. Saknas raden gäller 'default'.",
+  "classes": {
+    "realtid": {
+      "ttl": 60,
+      "stale_after": 900,
+      "refresh_policy": "background",
+      "priority": 1,
+      "warm_on_start": true,
+      "retry_policy": {
+        "attempts": 2,
+        "backoff_s": 1.5,
+        "max_backoff_s": 30
+      },
+      "fallback_policy": "serve_stale",
+      "circuit": {
+        "failures_to_open": 4,
+        "open_s": 60,
+        "max_open_s": 900
+      }
+    },
+    "marknad": {
+      "ttl": 900,
+      "stale_after": 21600,
+      "refresh_policy": "background",
+      "priority": 1,
+      "warm_on_start": true,
+      "retry_policy": {
+        "attempts": 3,
+        "backoff_s": 2,
+        "max_backoff_s": 60
+      },
+      "fallback_policy": "serve_stale",
+      "circuit": {
+        "failures_to_open": 3,
+        "open_s": 120,
+        "max_open_s": 1800
+      }
+    },
+    "nyhet": {
+      "ttl": 1800,
+      "stale_after": 43200,
+      "refresh_policy": "background",
+      "priority": 2,
+      "warm_on_start": true,
+      "retry_policy": {
+        "attempts": 2,
+        "backoff_s": 3,
+        "max_backoff_s": 120
+      },
+      "fallback_policy": "serve_stale",
+      "circuit": {
+        "failures_to_open": 3,
+        "open_s": 300,
+        "max_open_s": 3600
+      }
+    },
+    "dygn": {
+      "ttl": 86400,
+      "stale_after": 259200,
+      "refresh_policy": "background",
+      "priority": 3,
+      "warm_on_start": false,
+      "retry_policy": {
+        "attempts": 3,
+        "backoff_s": 5,
+        "max_backoff_s": 300
+      },
+      "fallback_policy": "serve_stale",
+      "circuit": {
+        "failures_to_open": 3,
+        "open_s": 600,
+        "max_open_s": 7200
+      }
+    },
+    "vecka": {
+      "ttl": 604800,
+      "stale_after": 2592000,
+      "refresh_policy": "background",
+      "priority": 4,
+      "warm_on_start": false,
+      "retry_policy": {
+        "attempts": 3,
+        "backoff_s": 5,
+        "max_backoff_s": 600
+      },
+      "fallback_policy": "serve_stale",
+      "circuit": {
+        "failures_to_open": 3,
+        "open_s": 1800,
+        "max_open_s": 21600
+      }
+    },
+    "historik": {
+      "ttl": 2592000,
+      "stale_after": 15552000,
+      "refresh_policy": "background",
+      "priority": 5,
+      "warm_on_start": false,
+      "retry_policy": {
+        "attempts": 2,
+        "backoff_s": 10,
+        "max_backoff_s": 900
+      },
+      "fallback_policy": "serve_stale",
+      "circuit": {
+        "failures_to_open": 3,
+        "open_s": 3600,
+        "max_open_s": 43200
+      }
+    },
+    "statisk": {
+      "ttl": 15552000,
+      "stale_after": 63072000,
+      "refresh_policy": "lazy",
+      "priority": 9,
+      "warm_on_start": false,
+      "retry_policy": {
+        "attempts": 2,
+        "backoff_s": 10,
+        "max_backoff_s": 900
+      },
+      "fallback_policy": "serve_stale",
+      "circuit": {
+        "failures_to_open": 3,
+        "open_s": 3600,
+        "max_open_s": 86400
+      }
+    }
+  },
+  "default": {
+    "class": "nyhet",
+    "_doc": "Okänd nyckel: mjuk medelpolicy. TTL:n som anropet skickar med vinner (bakåtkompatibelt), övriga fält kommer härifrån."
+  },
+  "sources": {
+    "trains": {
+      "class": "realtid",
+      "label": "Live-tåg (GTFS-RT)"
+    },
+    "iss": {
+      "class": "realtid",
+      "label": "ISS-position"
+    },
+    "aurora": {
+      "class": "realtid",
+      "label": "NOAA SWPC norrsken"
+    },
+    "swpc": {
+      "class": "realtid",
+      "label": "Rymdväder (SWPC)"
+    },
+    "rainviewer": {
+      "class": "realtid",
+      "label": "Nederbördsradar"
+    },
+    "nws": {
+      "class": "realtid",
+      "label": "NWS vädervarningar"
+    },
+    "digitraffic": {
+      "class": "realtid",
+      "label": "Digitraffic (FI)"
+    },
+    "gdacs": {
+      "class": "realtid",
+      "label": "GDACS katastrofvarningar"
+    },
+    "nhc": {
+      "class": "realtid",
+      "label": "NHC cykloner"
+    },
+    "aq": {
+      "class": "realtid",
+      "label": "Luftkvalitet"
+    },
+    "buoys": {
+      "class": "realtid",
+      "label": "NDBC-bojar"
+    },
+    "firms": {
+      "class": "realtid",
+      "label": "NASA FIRMS bränder"
+    },
+    "sat": {
+      "ttl": 60,
+      "stale_after": 600,
+      "label": "Satellitpositioner"
+    },
+    "eq": {
+      "class": "realtid",
+      "label": "USGS jordbävningar"
+    },
+    "eonet": {
+      "class": "realtid",
+      "label": "NASA EONET naturhändelser"
+    },
+    "elprice": {
+      "class": "nyhet",
+      "label": "EU elpriser (day-ahead)"
+    },
+    "fred": {
+      "class": "marknad",
+      "label": "FRED (makroserier)"
+    },
+    "mkt": {
+      "class": "marknad",
+      "label": "Marknadskurser"
+    },
+    "yahoo": {
+      "class": "marknad",
+      "label": "Yahoo Finance"
+    },
+    "commodities": {
+      "class": "marknad",
+      "label": "Råvarupriser"
+    },
+    "options": {
+      "class": "marknad",
+      "label": "CBOE optionskedjor"
+    },
+    "reality": {
+      "class": "marknad",
+      "label": "Market Reality (härlett)"
+    },
+    "genmix": {
+      "class": "marknad",
+      "label": "Elmix"
+    },
+    "sentiment": {
+      "class": "marknad",
+      "label": "Fear & Greed"
+    },
+    "gdelt_events": {
+      "class": "nyhet",
+      "label": "GDELT världshändelser"
+    },
+    "rss": {
+      "class": "nyhet",
+      "label": "Nyhetsflöden"
+    },
+    "social": {
+      "class": "nyhet",
+      "label": "Socialt"
+    },
+    "bsky": {
+      "class": "nyhet",
+      "label": "Bluesky"
+    },
+    "gpr": {
+      "class": "historik",
+      "label": "Geopolitisk risk (historik)"
+    },
+    "polecat": {
+      "class": "nyhet",
+      "label": "Polecat-signaler"
+    },
+    "volc": {
+      "class": "nyhet",
+      "label": "Vulkaner"
+    },
+    "gvp": {
+      "class": "nyhet",
+      "label": "Smithsonian GVP"
+    },
+    "gasweather": {
+      "class": "nyhet",
+      "label": "Gasväder"
+    },
+    "softs": {
+      "class": "nyhet",
+      "label": "Mjuka råvaror/väder"
+    },
+    "drought": {
+      "class": "nyhet",
+      "label": "Torkindex"
+    },
+    "world_weather": {
+      "class": "nyhet",
+      "label": "Världsväder"
+    },
+    "pegel": {
+      "class": "nyhet",
+      "label": "Vattenstånd (Rhen)"
+    },
+    "nve": {
+      "class": "nyhet",
+      "label": "NVE vattenmagasin"
+    },
+    "etf": {
+      "class": "dygn",
+      "label": "ETF-innehav",
+      "warm_on_start": true,
+      "priority": 2
+    },
+    "kg": {
+      "class": "dygn",
+      "label": "Kunskapsgraf",
+      "warm_on_start": true,
+      "priority": 1
+    },
+    "cot": {
+      "class": "dygn",
+      "label": "CFTC COT-positionering"
+    },
+    "sec": {
+      "class": "dygn",
+      "label": "SEC-inlämningar"
+    },
+    "portwatch": {
+      "class": "dygn",
+      "label": "IMF PortWatch"
+    },
+    "eia": {
+      "class": "dygn",
+      "label": "EIA energi"
+    },
+    "opensanctions": {
+      "class": "dygn",
+      "label": "OpenSanctions"
+    },
+    "acled": {
+      "class": "dygn",
+      "label": "ACLED konflikter"
+    },
+    "ucdp": {
+      "class": "dygn",
+      "label": "UCDP konflikter"
+    },
+    "ucdp_acd": {
+      "class": "dygn",
+      "label": "UCDP väpnad konflikt"
+    },
+    "unhcr": {
+      "class": "dygn",
+      "label": "UNHCR flyktingflöden"
+    },
+    "launches": {
+      "class": "dygn",
+      "label": "Rymduppskjutningar"
+    },
+    "fireballs": {
+      "class": "dygn",
+      "label": "NASA eldklot"
+    },
+    "gfw": {
+      "class": "dygn",
+      "label": "Global Fishing Watch"
+    },
+    "carbonmapper": {
+      "class": "dygn",
+      "label": "Carbon Mapper metan"
+    },
+    "ember": {
+      "class": "dygn",
+      "label": "Ember elproduktion"
+    },
+    "scb": {
+      "class": "dygn",
+      "label": "SCB Sverige"
+    },
+    "wb": {
+      "class": "vecka",
+      "label": "Världsbanken"
+    },
+    "wb_world": {
+      "class": "vecka",
+      "label": "Världsbanken (världen)"
+    },
+    "oec": {
+      "class": "vecka",
+      "label": "OEC handelsdata"
+    },
+    "comtrade": {
+      "class": "vecka",
+      "label": "UN Comtrade"
+    },
+    "bis": {
+      "class": "vecka",
+      "label": "BIS"
+    },
+    "cpb": {
+      "class": "vecka",
+      "label": "CPB världshandel"
+    },
+    "dbn": {
+      "class": "vecka",
+      "label": "DBnomics"
+    },
+    "fpma": {
+      "class": "vecka",
+      "label": "FAO livsmedelspriser"
+    },
+    "owid": {
+      "class": "historik",
+      "label": "Our World in Data (årsserier)"
+    },
+    "gdelt_day": {
+      "class": "historik",
+      "label": "GDELT historiska dygn",
+      "_doc": "Ett passerat dygns händelser ändras ALDRIG — utan denna rad föll de på 30-minuterspolicyn och hämtades om i onödan."
+    },
+    "conflict_hist": {
+      "class": "historik",
+      "label": "Konflikthistorik"
+    },
+    "heritage": {
+      "class": "statisk",
+      "label": "UNESCO världsarv"
+    },
+    "cables": {
+      "class": "statisk",
+      "label": "Undervattenskablar"
+    },
+    "tectonic": {
+      "class": "statisk",
+      "label": "Tektoniska plattor"
+    },
+    "nga": {
+      "class": "statisk",
+      "label": "NGA sjöfartsvarningar"
+    },
+    "wildlife": {
+      "class": "statisk",
+      "label": "Djurmigration"
+    },
+    "engine": {
+      "ttl": 21600,
+      "stale_after": 172800,
+      "label": "Analysmotorn (bundle)",
+      "_doc": "Explicit policy KRÄVS: utan den använder CACHE.get() default-ttl 1800 s medan get_or_fetch använder anropets 21600 s → /api/overview fastnar i 'building' när bundeln är >30 min gammal."
+    },
+    "live": {
+      "ttl": 60,
+      "stale_after": 300,
+      "label": "Live-zonstatistik"
+    },
+    "adsb": {
+      "ttl": 90,
+      "stale_after": 600,
+      "label": "ADS-B flygtrafik"
+    },
+    "dark": {
+      "ttl": 240,
+      "stale_after": 900,
+      "label": "Mörka fartyg/STS"
+    },
+    "flags": {
+      "ttl": 180,
+      "stale_after": 900,
+      "label": "Flaggstat/skuggflotta"
+    },
+    "brief": {
+      "ttl": 600,
+      "stale_after": 1800,
+      "label": "IDAG-brief"
+    },
+    "delays": {
+      "ttl": 600,
+      "stale_after": 1800,
+      "label": "Förseningsrisk"
+    },
+    "ports": {
+      "ttl": 120,
+      "stale_after": 900,
+      "label": "Hamnlager"
+    },
+    "adsbgrid": {
+      "ttl": 900,
+      "stale_after": 3600,
+      "label": "ADS-B globalt rutnät",
+      "_doc": "EGET prefix: rutnätet svepes var 9:e minut och måste överleva längre än punktfrågornas 90 s — annars avvisar CACHE.get() det."
+    },
+    "celestrak": {
+      "ttl": 43200,
+      "stale_after": 172800,
+      "label": "Celestrak TLE"
+    }
+  },
+  "warm_plan": {
+    "_doc": "Uppvärmning sker genom att Atlas anropar sina EGNA endpoints i prioritetsordning efter start. Det värmer varje underliggande källa transitivt utan en rad källspecifik kod. API:t svarar direkt hela tiden — detta körs i bakgrunden.",
+    "targets": [
+      {
+        "path": "/api/graph/stats",
+        "priority": 1,
+        "timeout": 60
+      },
+      {
+        "path": "/api/regime",
+        "priority": 1,
+        "timeout": 120
+      },
+      {
+        "path": "/api/fear-gauge",
+        "priority": 1,
+        "timeout": 180
+      },
+      {
+        "path": "/api/macro/rates",
+        "priority": 2,
+        "timeout": 120
+      },
+      {
+        "path": "/api/supply-index",
+        "priority": 2,
+        "timeout": 180
+      },
+      {
+        "path": "/api/theses",
+        "priority": 3,
+        "timeout": 400
+      },
+      {
+        "path": "/api/events/refresh",
+        "priority": 4,
+        "timeout": 300
+      },
+      {
+        "path": "/api/macro/nowcast",
+        "priority": 5,
+        "timeout": 120
+      },
+      {
+        "path": "/api/impact/map",
+        "priority": 5,
+        "timeout": 200
+      },
+      {
+        "path": "/api/portfolio/exposure-map",
+        "priority": 5,
+        "timeout": 200
+      },
+      {
+        "path": "/api/brief/today",
+        "priority": 6,
+        "timeout": 200
+      }
+    ]
+  }
+}

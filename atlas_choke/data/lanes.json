@@ -1,0 +1,615 @@
+{
+ "lanes": [
+  {
+   "id": "asia-europe",
+   "name": "Asien–Europa (huvudled)",
+   "from": "shanghai",
+   "to": "rotterdam",
+   "via": [
+    "taiwan-strait",
+    "malacca",
+    "bab-el-mandeb",
+    "suez",
+    "gibraltar",
+    "dover"
+   ],
+   "teu_share_pct": 22,
+   "waypoints": [
+    [
+     121.49,
+     31.23
+    ],
+    [
+     119.5,
+     24.0
+    ],
+    [
+     112.0,
+     15.0
+    ],
+    [
+     104.5,
+     2.0
+    ],
+    [
+     103.84,
+     1.26
+    ],
+    [
+     98.0,
+     5.5
+    ],
+    [
+     80.5,
+     5.8
+    ],
+    [
+     60.0,
+     13.0
+    ],
+    [
+     50.0,
+     12.5
+    ],
+    [
+     43.33,
+     12.58
+    ],
+    [
+     38.5,
+     20.0
+    ],
+    [
+     32.35,
+     30.45
+    ],
+    [
+     32.0,
+     32.0
+    ],
+    [
+     20.0,
+     34.5
+    ],
+    [
+     10.0,
+     37.5
+    ],
+    [
+     -5.6,
+     35.95
+    ],
+    [
+     -9.5,
+     38.5
+    ],
+    [
+     -5.0,
+     48.5
+    ],
+    [
+     1.5,
+     50.9
+    ],
+    [
+     4.14,
+     51.95
+    ]
+   ]
+  },
+  {
+   "id": "transpacific",
+   "name": "Transpacifik (Asien–USA väst)",
+   "from": "shanghai",
+   "to": "losangeles",
+   "via": [],
+   "teu_share_pct": 15,
+   "waypoints": [
+    [
+     121.49,
+     31.23
+    ],
+    [
+     140.0,
+     36.0
+    ],
+    [
+     160.0,
+     43.0
+    ],
+    [
+     179.5,
+     47.0
+    ],
+    [
+     -160.0,
+     50.0
+    ],
+    [
+     -140.0,
+     45.0
+    ],
+    [
+     -125.0,
+     38.0
+    ],
+    [
+     -118.26,
+     33.73
+    ]
+   ]
+  },
+  {
+   "id": "transatlantic",
+   "name": "Transatlantisk (Europa–USA öst)",
+   "from": "rotterdam",
+   "to": "newyork",
+   "via": [
+    "dover"
+   ],
+   "teu_share_pct": 8,
+   "waypoints": [
+    [
+     4.14,
+     51.95
+    ],
+    [
+     1.5,
+     50.9
+    ],
+    [
+     -5.0,
+     48.8
+    ],
+    [
+     -30.0,
+     45.0
+    ],
+    [
+     -60.0,
+     41.0
+    ],
+    [
+     -74.05,
+     40.67
+    ]
+   ]
+  },
+  {
+   "id": "gulf-asia-oil",
+   "name": "Persiska viken–Asien (olja)",
+   "from": "ras-tanura",
+   "to": "shanghai",
+   "via": [
+    "hormuz",
+    "malacca",
+    "taiwan-strait"
+   ],
+   "teu_share_pct": 12,
+   "waypoints": [
+    [
+     50.16,
+     26.64
+    ],
+    [
+     56.25,
+     26.57
+    ],
+    [
+     61.0,
+     24.0
+    ],
+    [
+     73.0,
+     10.0
+    ],
+    [
+     80.5,
+     5.8
+    ],
+    [
+     98.0,
+     5.5
+    ],
+    [
+     103.84,
+     1.26
+    ],
+    [
+     110.0,
+     8.0
+    ],
+    [
+     119.5,
+     24.0
+    ],
+    [
+     121.49,
+     31.23
+    ]
+   ]
+  },
+  {
+   "id": "panama-asia",
+   "name": "Asien–USA öst (via Panama)",
+   "from": "shanghai",
+   "to": "newyork",
+   "via": [
+    "panama"
+   ],
+   "teu_share_pct": 5,
+   "waypoints": [
+    [
+     121.49,
+     31.23
+    ],
+    [
+     150.0,
+     33.0
+    ],
+    [
+     179.5,
+     30.0
+    ],
+    [
+     -160.0,
+     25.0
+    ],
+    [
+     -120.0,
+     15.0
+    ],
+    [
+     -85.0,
+     7.0
+    ],
+    [
+     -79.68,
+     9.08
+    ],
+    [
+     -76.0,
+     20.0
+    ],
+    [
+     -75.0,
+     32.0
+    ],
+    [
+     -74.05,
+     40.67
+    ]
+   ]
+  },
+  {
+   "id": "lng-usgulf-europe",
+   "name": "LNG: USA Gulf–Europa",
+   "from": "sabine-pass",
+   "to": "zeebrugge",
+   "via": [
+    "dover"
+   ],
+   "teu_share_pct": 4,
+   "waypoints": [
+    [
+     -93.87,
+     29.74
+    ],
+    [
+     -88.0,
+     27.0
+    ],
+    [
+     -82.0,
+     24.5
+    ],
+    [
+     -79.0,
+     27.0
+    ],
+    [
+     -70.0,
+     35.0
+    ],
+    [
+     -40.0,
+     43.0
+    ],
+    [
+     -8.0,
+     48.5
+    ],
+    [
+     1.5,
+     50.9
+    ],
+    [
+     3.2,
+     51.35
+    ]
+   ]
+  },
+  {
+   "id": "baltic",
+   "name": "Nordsjön–Östersjön",
+   "from": "rotterdam",
+   "to": "gdansk",
+   "via": [
+    "danish-straits"
+   ],
+   "teu_share_pct": 2,
+   "waypoints": [
+    [
+     4.14,
+     51.95
+    ],
+    [
+     6.5,
+     54.0
+    ],
+    [
+     8.0,
+     57.3
+    ],
+    [
+     11.9,
+     57.69
+    ],
+    [
+     11.5,
+     56.5
+    ],
+    [
+     12.7,
+     55.7
+    ],
+    [
+     14.5,
+     55.0
+    ],
+    [
+     18.66,
+     54.4
+    ]
+   ]
+  },
+  {
+   "id": "cape-route",
+   "name": "Asien–Europa (Godahoppsudden)",
+   "from": "singapore",
+   "to": "rotterdam",
+   "via": [
+    "malacca"
+   ],
+   "teu_share_pct": 3,
+   "waypoints": [
+    [
+     103.84,
+     1.26
+    ],
+    [
+     98.0,
+     5.5
+    ],
+    [
+     80.5,
+     5.8
+    ],
+    [
+     55.0,
+     -5.0
+    ],
+    [
+     40.0,
+     -22.0
+    ],
+    [
+     18.4,
+     -34.8
+    ],
+    [
+     5.0,
+     -15.0
+    ],
+    [
+     -8.0,
+     4.0
+    ],
+    [
+     -17.0,
+     15.0
+    ],
+    [
+     -13.0,
+     28.0
+    ],
+    [
+     -9.5,
+     38.5
+    ],
+    [
+     -5.0,
+     48.5
+    ],
+    [
+     1.5,
+     50.9
+    ],
+    [
+     4.14,
+     51.95
+    ]
+   ]
+  },
+  {
+   "id": "australia-asia",
+   "name": "Australien–Asien (LNG/bulk)",
+   "from": "karratha",
+   "to": "shanghai",
+   "via": [
+    "taiwan-strait"
+   ],
+   "teu_share_pct": 3,
+   "waypoints": [
+    [
+     116.76,
+     -20.62
+    ],
+    [
+     115.0,
+     -10.0
+    ],
+    [
+     114.0,
+     0.0
+    ],
+    [
+     112.0,
+     8.0
+    ],
+    [
+     115.0,
+     15.0
+    ],
+    [
+     119.5,
+     24.0
+    ],
+    [
+     121.49,
+     31.23
+    ]
+   ]
+  },
+  {
+   "id": "southamerica-europe",
+   "name": "Sydamerika–Europa",
+   "from": "santos",
+   "to": "rotterdam",
+   "via": [
+    "dover"
+   ],
+   "teu_share_pct": 2,
+   "waypoints": [
+    [
+     -46.3,
+     -23.98
+    ],
+    [
+     -38.0,
+     -15.0
+    ],
+    [
+     -32.0,
+     0.0
+    ],
+    [
+     -25.0,
+     15.0
+    ],
+    [
+     -18.0,
+     25.0
+    ],
+    [
+     -9.5,
+     38.5
+    ],
+    [
+     -5.0,
+     48.5
+    ],
+    [
+     1.5,
+     50.9
+    ],
+    [
+     4.14,
+     51.95
+    ]
+   ]
+  }
+ ],
+ "chokepoint_alternatives": {
+  "suez": {
+   "route": "Runt Godahoppsudden",
+   "delay_days": [
+    10,
+    14
+   ],
+   "note": "Ökar bränslekostnad ~35–50 %; kapacitetsbrist på fartyg uppstår när omloppstiderna förlängs."
+  },
+  "malacca": {
+   "route": "Sunda- eller Lomboksundet",
+   "delay_days": [
+    2,
+    4
+   ],
+   "note": "Begränsat djupgående i Sunda; Lombok klarar VLCC men ger längre rutt."
+  },
+  "hormuz": {
+   "route": "Pipeline (Petroline till Röda havet, ADCOP till Fujairah)",
+   "delay_days": [
+    0,
+    0
+   ],
+   "note": "Pipelinekapacitet täcker bara en bråkdel — kraftig oljeprispåverkan är väntad; få reella alternativ."
+  },
+  "panama": {
+   "route": "Runt Kap Horn eller USA-järnväg (landbridge)",
+   "delay_days": [
+    7,
+    12
+   ],
+   "note": "Landbridge har begränsad kapacitet; Kap Horn kraftigt väderutsatt."
+  },
+  "bab-el-mandeb": {
+   "route": "Runt Godahoppsudden",
+   "delay_days": [
+    9,
+    13
+   ],
+   "note": "Stänger i praktiken Suezrutten söderifrån."
+  },
+  "bosporus": {
+   "route": "Järnväg/flod via Donau, hamnar i Konstanța",
+   "delay_days": [
+    5,
+    15
+   ],
+   "note": "Mycket begränsad alternativ kapacitet för spannmål och olja."
+  },
+  "taiwan-strait": {
+   "route": "Öster om Taiwan (Filippinska sjön)",
+   "delay_days": [
+    1,
+    2
+   ],
+   "note": "Kort omväg men stor försäkrings-/riskpremie vid konflikt; elektronikförsörjningen känslig."
+  },
+  "danish-straits": {
+   "route": "Kielkanalen (begränsat djupgående)",
+   "delay_days": [
+    1,
+    3
+   ],
+   "note": "Större tankfartyg kan inte använda Kielkanalen."
+  },
+  "gibraltar": {
+   "route": "Inga praktiska alternativ in i Medelhavet västerifrån",
+   "delay_days": [
+    10,
+    14
+   ],
+   "note": "Trafik får gå via Suez österifrån."
+  },
+  "dover": {
+   "route": "Norr om Storbritannien",
+   "delay_days": [
+    1,
+    2
+   ],
+   "note": "Måttlig omväg; stor täthet av färje- och kanaltrafik drabbas."
+  }
+ }
+}

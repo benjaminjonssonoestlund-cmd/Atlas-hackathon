@@ -1,0 +1,890 @@
+{
+ "detections": [
+  {
+   "lat": 26.1953,
+   "lon": 55.9707,
+   "px": 4,
+   "aoi": "hormuz"
+  },
+  {
+   "lat": 26.1913,
+   "lon": 55.9232,
+   "px": 9,
+   "aoi": "hormuz"
+  },
+  {
+   "lat": 26.3826,
+   "lon": 55.9845,
+   "px": 1,
+   "aoi": "hormuz"
+  },
+  {
+   "lat": 26.3973,
+   "lon": 55.9703,
+   "px": 1,
+   "aoi": "hormuz"
+  },
+  {
+   "lat": 26.4149,
+   "lon": 55.9726,
+   "px": 1,
+   "aoi": "hormuz"
+  },
+  {
+   "lat": 1.2593,
+   "lon": 103.993,
+   "px": 5,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2566,
+   "lon": 103.9989,
+   "px": 4,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2548,
+   "lon": 103.9651,
+   "px": 6,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2509,
+   "lon": 103.9694,
+   "px": 8,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2419,
+   "lon": 104.0065,
+   "px": 2,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.258,
+   "lon": 103.9254,
+   "px": 12,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2579,
+   "lon": 103.9149,
+   "px": 7,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.258,
+   "lon": 103.9039,
+   "px": 7,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2461,
+   "lon": 103.9536,
+   "px": 3,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2464,
+   "lon": 103.9484,
+   "px": 7,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2588,
+   "lon": 103.895,
+   "px": 1,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2546,
+   "lon": 103.9091,
+   "px": 7,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2521,
+   "lon": 103.9181,
+   "px": 7,
+   "length_m": 280,
+   "class": "Suezmax/Post-panamax",
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2424,
+   "lon": 103.9615,
+   "px": 1,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2586,
+   "lon": 103.879,
+   "px": 4,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2334,
+   "lon": 103.9947,
+   "px": 6,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.242,
+   "lon": 103.9534,
+   "px": 9,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2533,
+   "lon": 103.901,
+   "px": 8,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2497,
+   "lon": 103.9069,
+   "px": 21,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2553,
+   "lon": 103.8878,
+   "px": 6,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.258,
+   "lon": 103.8739,
+   "px": 2,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2579,
+   "lon": 103.8691,
+   "px": 4,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2426,
+   "lon": 103.9358,
+   "px": 1,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2588,
+   "lon": 103.8399,
+   "px": 48,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2537,
+   "lon": 103.8754,
+   "px": 5,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2504,
+   "lon": 103.8687,
+   "px": 15,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2582,
+   "lon": 103.8431,
+   "px": 4,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.24,
+   "lon": 103.9238,
+   "px": 7,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2589,
+   "lon": 103.8251,
+   "px": 30,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2509,
+   "lon": 103.8724,
+   "px": 2,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2566,
+   "lon": 103.8353,
+   "px": 25,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2573,
+   "lon": 103.8304,
+   "px": 21,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2551,
+   "lon": 103.8218,
+   "px": 47,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2447,
+   "lon": 103.8849,
+   "px": 10,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.246,
+   "lon": 103.875,
+   "px": 5,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2505,
+   "lon": 103.846,
+   "px": 35,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2338,
+   "lon": 103.9304,
+   "px": 6,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.247,
+   "lon": 103.8694,
+   "px": 2,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2445,
+   "lon": 103.8777,
+   "px": 2,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2476,
+   "lon": 103.8424,
+   "px": 43,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2513,
+   "lon": 103.8248,
+   "px": 43,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2168,
+   "lon": 103.9973,
+   "px": 1,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.249,
+   "lon": 103.8363,
+   "px": 33,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2474,
+   "lon": 103.8456,
+   "px": 4,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2429,
+   "lon": 103.8396,
+   "px": 40,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2469,
+   "lon": 103.8282,
+   "px": 34,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2512,
+   "lon": 103.8204,
+   "px": 12,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2372,
+   "lon": 103.8843,
+   "px": 10,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2482,
+   "lon": 103.8318,
+   "px": 3,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2332,
+   "lon": 103.8908,
+   "px": 7,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.243,
+   "lon": 103.8433,
+   "px": 9,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2407,
+   "lon": 103.8357,
+   "px": 30,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2482,
+   "lon": 103.8249,
+   "px": 2,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2191,
+   "lon": 103.9466,
+   "px": 3,
+   "length_m": 200,
+   "class": "Panamax/Aframax",
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2404,
+   "lon": 103.8312,
+   "px": 7,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2384,
+   "lon": 103.8399,
+   "px": 8,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2374,
+   "lon": 103.8439,
+   "px": 2,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.238,
+   "lon": 103.8325,
+   "px": 4,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2307,
+   "lon": 103.8576,
+   "px": 1,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2348,
+   "lon": 103.8349,
+   "px": 1,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2294,
+   "lon": 103.8532,
+   "px": 3,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1899,
+   "lon": 104.0185,
+   "px": 52,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1899,
+   "lon": 104.015,
+   "px": 18,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1969,
+   "lon": 103.9947,
+   "px": 6,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2332,
+   "lon": 103.8232,
+   "px": 4,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2163,
+   "lon": 103.89,
+   "px": 7,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2229,
+   "lon": 103.8626,
+   "px": 1,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2218,
+   "lon": 103.857,
+   "px": 12,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2246,
+   "lon": 103.8549,
+   "px": 3,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1836,
+   "lon": 104.0172,
+   "px": 52,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1848,
+   "lon": 104.012,
+   "px": 54,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1936,
+   "lon": 103.9793,
+   "px": 3,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1842,
+   "lon": 104.0066,
+   "px": 42,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1811,
+   "lon": 104.0033,
+   "px": 42,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1913,
+   "lon": 103.9868,
+   "px": 3,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.218,
+   "lon": 103.849,
+   "px": 13,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2089,
+   "lon": 103.8981,
+   "px": 3,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2182,
+   "lon": 103.8506,
+   "px": 8,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2175,
+   "lon": 103.8545,
+   "px": 4,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1921,
+   "lon": 103.9711,
+   "px": 3,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1779,
+   "lon": 104.016,
+   "px": 43,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1789,
+   "lon": 104.01,
+   "px": 36,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1761,
+   "lon": 104.006,
+   "px": 52,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.22,
+   "lon": 103.8272,
+   "px": 6,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2131,
+   "lon": 103.8515,
+   "px": 5,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1909,
+   "lon": 103.9583,
+   "px": 5,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2043,
+   "lon": 103.8946,
+   "px": 5,
+   "length_m": 240,
+   "class": "Suezmax/Post-panamax",
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2112,
+   "lon": 103.8543,
+   "px": 1,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2151,
+   "lon": 103.8341,
+   "px": 2,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1763,
+   "lon": 104.0009,
+   "px": 45,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1781,
+   "lon": 104.0032,
+   "px": 1,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1839,
+   "lon": 103.9721,
+   "px": 7,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1721,
+   "lon": 104.0149,
+   "px": 53,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1725,
+   "lon": 104.0098,
+   "px": 47,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2152,
+   "lon": 103.822,
+   "px": 6,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1808,
+   "lon": 103.9832,
+   "px": 1,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1841,
+   "lon": 103.9516,
+   "px": 4,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1703,
+   "lon": 104.0048,
+   "px": 44,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1663,
+   "lon": 104.0181,
+   "px": 54,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.178,
+   "lon": 103.9786,
+   "px": 2,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2042,
+   "lon": 103.8509,
+   "px": 3,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1663,
+   "lon": 104.0128,
+   "px": 50,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1692,
+   "lon": 104.0001,
+   "px": 30,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1666,
+   "lon": 104.0083,
+   "px": 42,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.162,
+   "lon": 104.0191,
+   "px": 29,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1757,
+   "lon": 103.9685,
+   "px": 4,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.164,
+   "lon": 104.0029,
+   "px": 46,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1676,
+   "lon": 103.9951,
+   "px": 9,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1757,
+   "lon": 103.9592,
+   "px": 7,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.161,
+   "lon": 104.0133,
+   "px": 50,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1766,
+   "lon": 103.9488,
+   "px": 3,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1609,
+   "lon": 104.0078,
+   "px": 54,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1619,
+   "lon": 103.9981,
+   "px": 48,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1783,
+   "lon": 103.9386,
+   "px": 1,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1789,
+   "lon": 103.9339,
+   "px": 8,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1968,
+   "lon": 103.8415,
+   "px": 5,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1658,
+   "lon": 103.9797,
+   "px": 2,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1972,
+   "lon": 103.8282,
+   "px": 2,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1621,
+   "lon": 103.9723,
+   "px": 2,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1876,
+   "lon": 103.8523,
+   "px": 1,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1633,
+   "lon": 103.9634,
+   "px": 1,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1617,
+   "lon": 103.9589,
+   "px": 3,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1642,
+   "lon": 103.9397,
+   "px": 4,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.187,
+   "lon": 103.8309,
+   "px": 6,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1618,
+   "lon": 103.9491,
+   "px": 1,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1602,
+   "lon": 103.944,
+   "px": 4,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.171,
+   "lon": 103.8915,
+   "px": 1,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1601,
+   "lon": 103.9339,
+   "px": 5,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1624,
+   "lon": 103.8983,
+   "px": 22,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.1908,
+   "lon": 103.8094,
+   "length_m": 120,
+   "class": "Handysize/feeder",
+   "px": 0,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2633,
+   "lon": 103.913,
+   "length_m": 200,
+   "class": "Panamax/Aframax",
+   "px": 0,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2612,
+   "lon": 103.8995,
+   "length_m": 200,
+   "class": "Panamax/Aframax",
+   "px": 0,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2608,
+   "lon": 103.9617,
+   "length_m": 220,
+   "class": "Panamax/Aframax",
+   "px": 0,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2768,
+   "lon": 103.9305,
+   "length_m": 320,
+   "class": "VLCC/ULCV (>300 m)",
+   "px": 0,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2655,
+   "lon": 103.9197,
+   "length_m": 360,
+   "class": "VLCC/ULCV (>300 m)",
+   "px": 0,
+   "aoi": "singapore"
+  },
+  {
+   "lat": 1.2723,
+   "lon": 103.9289,
+   "length_m": 320,
+   "class": "VLCC/ULCV (>300 m)",
+   "px": 0,
+   "aoi": "singapore"
+  }
+ ],
+ "scenes": [
+  {
+   "aoi": "hormuz",
+   "scene_time": "2026-09-06T14:24:35.724720Z",
+   "scene_id": "S1C_IW_GRDH_1SDV_20260906T142421_20260906T142449_009328_0128C8",
+   "n": 5,
+   "land_masked": 572,
+   "sized": 0
+  },
+  {
+   "aoi": "singapore",
+   "scene_time": "2026-09-04T22:47:32.989268Z",
+   "scene_id": "S1D_IW_GRDH_1SDV_20260904T224720_20260904T224745_004434_008374",
+   "n": 129,
+   "land_masked": 0,
+   "sized": 10
+  }
+ ],
+ "sized_total": 10,
+ "note": "Sentinel-1 GRD VV. Tröskling (15 sigma MAD) räknar skroven; SAM (segment-geospatial, vit_b) storleksbestämmer de tydligaste. ~1 km lägesosäkerhet (GCP-affin). Detektion ≠ identifierat fartyg — plattformar och öar kan förekomma."
+}
