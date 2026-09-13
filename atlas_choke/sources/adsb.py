@@ -85,6 +85,7 @@ CARGO_CALLSIGNS = (
     "AJT",   # Amerijet
     "LTG",   # LATAM Cargo
     "ABX",   # ABX Air
+    "CJT",   # Cargojet
 )
 
 

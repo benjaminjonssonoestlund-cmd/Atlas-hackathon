@@ -1,0 +1,7 @@
+# CJT-nowcast (cjt_nowcast/) — utöver requirements.txt. Versioner som bygget verifierades med.
+pandas==3.0.5
+numpy==2.5.3
+scikit-learn==1.9.1
+xlrd==2.0.2
+pdfplumber==0.11.10
+pytest==9.1.1

@@ -1,0 +1,12 @@
+quarter,report_date,consensus_revenue_cad_m,consensus_eps_cad,consensus_adj_ebitda_cad_m,actual_revenue_cad_m,actual_eps_cad,source,notes
+2024Q1,,,,,,,,"SAKNAS - ligger bakom Load more hos Investing.com. MarketBeat (annan vendor) har konsensus-EPS 0.71 och intakt 233.80 for rapport 2024-04-29, men blanda inte in den i serien"
+2024Q2,2024-08-13,234.13,0.900,,230.80,-0.050,investing.com,
+2024Q3,2024-11-04,247.29,1.120,,245.60,1.480,investing.com,
+2024Q4,2025-02-17,272.83,1.570,,293.20,1.710,investing.com,
+2025Q1,2025-04-24,260.15,1.090,,249.90,2.870,investing.com,
+2025Q2,2025-08-07,250.02,1.040,,238.20,1.020,investing.com,
+2025Q3,2025-11-05,240.38,0.958,,219.90,0.320,investing.com,
+2025Q4,2026-02-24,254.12,0.972,,284.70,1.470,investing.com,
+2026Q1,2026-05-04,243.00,0.852,,254.70,0.600,investing.com,
+2026Q2,2026-08-10,256.99,0.822,,275.80,0.670,investing.com,
+2026Q3,2026-11-10,265.36,0.760,,,,investing.com,"Ej rapporterat. Forward-konsensus per 2026-09-11, INTE dagen fore rapport"

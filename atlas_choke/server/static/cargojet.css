@@ -1,0 +1,47 @@
+/* Cargojet ✈ — panel, spelare och flygkort. Guld = Cargojet, cyan = valt. */
+
+.cjt-panel { border-color: rgba(255, 176, 32, 0.35); }
+.cjt-panel h3 { color: #ffc53d; }
+
+.cjt-player { display: flex; align-items: center; gap: 6px; margin-top: 8px; }
+.cjt-player button { width: 32px; padding: 3px 0; color: #ffc53d; border-color: rgba(255, 176, 32, 0.5); }
+.cjt-player select { width: 82px; padding: 2px; font-size: 11px; }
+#cjt-slider { flex: 1; accent-color: #ffb020; min-width: 0; }
+
+.cjt-clock { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap;
+  margin-top: 6px; font-family: var(--font-mono); font-size: 12px; color: #ffe3a3; }
+.cjt-clock .dim { color: var(--dim); font-size: 10.5px; }
+.cjt-air { margin-left: auto; color: #ffc53d; }
+
+.cjt-search { width: 100%; margin-top: 10px; padding: 5px 8px; background: #030608;
+  color: var(--text); border: 1px solid var(--border); border-radius: 3px;
+  font-family: var(--font-head); font-size: 12.5px; }
+.cjt-search:focus { outline: none; border-color: rgba(255, 176, 32, 0.6); }
+
+.cjt-list { max-height: 320px; overflow-y: auto; margin-top: 2px; }
+.cjt-row { display: grid; grid-template-columns: 70px 1fr auto; gap: 8px;
+  align-items: baseline; padding: 5px 4px; cursor: pointer; font-size: 12.5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05); border-left: 2px solid transparent; }
+.cjt-row:hover { background: rgba(255, 176, 32, 0.08); }
+.cjt-row.sel { background: rgba(0, 255, 200, 0.08); border-left-color: var(--accent); }
+.cjt-cs { font-family: var(--font-mono); color: #ffc53d; font-size: 12px; }
+.cjt-row.sel .cjt-cs { color: var(--accent); }
+.cjt-route { color: var(--text); font-weight: 600; letter-spacing: 0.5px; }
+.cjt-meta { color: var(--dim); font-family: var(--font-mono); font-size: 10.5px; }
+.cjt-status { font-size: 10.5px; }
+
+/* Flygkort i detaljpanelen */
+.cjt-card-head { display: flex; align-items: center; gap: 12px; }
+.cjt-card-icon { width: 46px; height: 46px; transform: rotate(45deg);
+  filter: drop-shadow(0 0 8px rgba(0, 255, 200, 0.45)); }
+.cjt-leg { display: grid; grid-template-columns: auto 1fr auto; align-items: center;
+  gap: 10px; margin: 16px 0 12px; padding: 12px 14px; border-radius: 4px;
+  background: linear-gradient(90deg, rgba(255, 176, 32, 0.08), rgba(0, 255, 200, 0.06));
+  border: 1px solid rgba(255, 176, 32, 0.25); text-align: center; }
+.cjt-leg .hint { margin: 2px 0 0; }
+.cjt-ap { font-family: var(--font-mono); font-size: 26px; color: #fff; letter-spacing: 1px; }
+.cjt-leg-line { position: relative; border-top: 1px dashed rgba(255, 197, 61, 0.55); height: 0; }
+.cjt-leg-line span { position: absolute; left: 50%; top: -11px; transform: translateX(-50%) rotate(0deg);
+  color: #ffc53d; font-size: 16px; background: #0b1218; padding: 0 5px; }
+.cjt-leg-line small { position: absolute; left: 50%; top: 8px; transform: translateX(-50%);
+  white-space: nowrap; color: var(--dim); font-family: var(--font-mono); font-size: 10.5px; }

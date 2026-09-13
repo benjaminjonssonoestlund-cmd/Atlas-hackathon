@@ -1,0 +1,292 @@
+{
+ "source": "Transport Canada CCAR + ADS-B-upptäckt (cjt_nowcast)",
+ "aircraft": [
+  {
+   "hex": "c0003e",
+   "reg": "C-FACJ",
+   "type": "B757-200",
+   "active_to": null
+  },
+  {
+   "hex": "c0054d",
+   "reg": "C-FCAE",
+   "type": "B767-300",
+   "active_to": null
+  },
+  {
+   "hex": "c00586",
+   "reg": "C-FCCJ",
+   "type": "B767-300",
+   "active_to": null
+  },
+  {
+   "hex": "c00638",
+   "reg": "C-FCJF",
+   "type": "B757-200",
+   "active_to": null
+  },
+  {
+   "hex": "c00642",
+   "reg": "C-FCJP",
+   "type": "B757-200",
+   "active_to": null
+  },
+  {
+   "hex": "c00647",
+   "reg": "C-FCJU",
+   "type": "B767-300",
+   "active_to": null,
+   "note": "upptäckt i ADS-B (CJT-callsign/ownOp)"
+  },
+  {
+   "hex": "c006d2",
+   "reg": "C-FCPD",
+   "type": "B767-300",
+   "active_to": null
+  },
+  {
+   "hex": "c008c6",
+   "reg": "C-FDIJ",
+   "type": "B767-300",
+   "active_to": null
+  },
+  {
+   "hex": "c00ebb",
+   "reg": "C-FFPA",
+   "type": "B757-200",
+   "active_to": null
+  },
+  {
+   "hex": "c00fe2",
+   "reg": "C-FGAJ",
+   "type": "B767-200",
+   "active_to": null,
+   "note": "upptäckt i ADS-B (CJT-callsign/ownOp)"
+  },
+  {
+   "hex": "c010e6",
+   "reg": "C-FGKJ",
+   "type": "B757-200",
+   "active_to": null
+  },
+  {
+   "hex": "c011b6",
+   "reg": "C-FGSJ",
+   "type": "B767-300",
+   "active_to": null
+  },
+  {
+   "hex": "c012ba",
+   "reg": "C-FHCJ",
+   "type": "B767-200",
+   "active_to": null
+  },
+  {
+   "hex": "c01a72",
+   "reg": "C-FKAJ",
+   "type": "B757-200",
+   "active_to": null
+  },
+  {
+   "hex": "c01aa6",
+   "reg": "C-FKCJ",
+   "type": "B757-200",
+   "active_to": null
+  },
+  {
+   "hex": "c01d16",
+   "reg": "C-FLAJ",
+   "type": "B757-200",
+   "active_to": null
+  },
+  {
+   "hex": "c01e93",
+   "reg": "C-FLPA",
+   "type": "B757-200",
+   "active_to": null
+  },
+  {
+   "hex": "c01e96",
+   "reg": "C-FLPD",
+   "type": "B767-300",
+   "active_to": null
+  },
+  {
+   "hex": "c01fba",
+   "reg": "C-FMAJ",
+   "type": "B767-300",
+   "active_to": null
+  },
+  {
+   "hex": "c0208a",
+   "reg": "C-FMIJ",
+   "type": "B767-300",
+   "active_to": null
+  },
+  {
+   "hex": "c023e4",
+   "reg": "C-FNPJ",
+   "type": "B767-300",
+   "active_to": null
+  },
+  {
+   "hex": "c025d2",
+   "reg": "C-FOIJ",
+   "type": "B767-200",
+   "active_to": null
+  },
+  {
+   "hex": "c027da",
+   "reg": "C-FPCJ",
+   "type": "B767-300",
+   "active_to": null
+  },
+  {
+   "hex": "c02876",
+   "reg": "C-FPIJ",
+   "type": "B767-300",
+   "active_to": null
+  },
+  {
+   "hex": "c04394",
+   "reg": "C-FZPJ",
+   "type": "B767-300",
+   "active_to": null
+  },
+  {
+   "hex": "c044b2",
+   "reg": "C-GAAJ",
+   "type": "B767-300",
+   "active_to": null
+  },
+  {
+   "hex": "c04599",
+   "reg": "C-GAJG",
+   "type": "B767-300",
+   "active_to": null
+  },
+  {
+   "hex": "c045a7",
+   "reg": "C-GAJU",
+   "type": "B757-200",
+   "active_to": null
+  },
+  {
+   "hex": "c04738",
+   "reg": "C-GAZF",
+   "type": "B767-300",
+   "active_to": null
+  },
+  {
+   "hex": "c0473b",
+   "reg": "C-GAZI",
+   "type": "B767-300",
+   "active_to": null
+  },
+  {
+   "hex": "c04aca",
+   "reg": "C-GCIJ",
+   "type": "B767-300",
+   "active_to": null
+  },
+  {
+   "hex": "c04adc",
+   "reg": "C-GCJB",
+   "type": "B757-200",
+   "active_to": null
+  },
+  {
+   "hex": "c04ae8",
+   "reg": "C-GCJN",
+   "type": "B767-300",
+   "active_to": null,
+   "note": "upptäckt i ADS-B (CJT-callsign/ownOp)"
+  },
+  {
+   "hex": "c04aed",
+   "reg": "C-GCJS",
+   "type": "B757-200",
+   "active_to": null
+  },
+  {
+   "hex": "c04aee",
+   "reg": "C-GCJT",
+   "type": "B757-200",
+   "active_to": null
+  },
+  {
+   "hex": "c04af3",
+   "reg": "C-GCJY",
+   "type": "B757-200",
+   "active_to": null
+  },
+  {
+   "hex": "c059d2",
+   "reg": "C-GIAJ",
+   "type": "B757-200",
+   "active_to": null
+  },
+  {
+   "hex": "c069de",
+   "reg": "C-GOCJ",
+   "type": "B767-300",
+   "active_to": null
+  },
+  {
+   "hex": "c06c4e",
+   "reg": "C-GPAJ",
+   "type": "B767-300",
+   "active_to": null
+  },
+  {
+   "hex": "c06c9c",
+   "reg": "C-GPDJ",
+   "type": "B767-300",
+   "active_to": null
+  },
+  {
+   "hex": "c07712",
+   "reg": "C-GTCJ",
+   "type": "B757-200",
+   "active_to": null
+  },
+  {
+   "hex": "c07982",
+   "reg": "C-GUAJ",
+   "type": "B767-300",
+   "active_to": null
+  },
+  {
+   "hex": "c07c26",
+   "reg": "C-GVAJ",
+   "type": "B757-200",
+   "active_to": null,
+   "note": "upptäckt i ADS-B (CJT-callsign/ownOp)"
+  },
+  {
+   "hex": "c07cf6",
+   "reg": "C-GVIJ",
+   "type": "B767-300",
+   "active_to": null
+  },
+  {
+   "hex": "c0816e",
+   "reg": "C-GXAJ",
+   "type": "B767-300",
+   "active_to": null
+  },
+  {
+   "hex": "c08412",
+   "reg": "C-GYAJ",
+   "type": "B767-300",
+   "active_to": null
+  },
+  {
+   "hex": "7c0b77",
+   "reg": "VH-CJT",
+   "type": "RV8",
+   "active_to": null,
+   "note": "upptäckt i ADS-B (CJT-callsign/ownOp)"
+  }
+ ]
+}

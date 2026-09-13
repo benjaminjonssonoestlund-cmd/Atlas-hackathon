@@ -1,13 +1,14 @@
 /* ============================================================================
-   ATLAS CHOKEPOINT — uppstartsskärm. Nedärvd från atlas-earth men fokuserad:
-   mäter FAKTISKA API-anrop (hakar i window.fetch) och släpper igenom när de
-   kritiska resurserna är klara. Laddas FÖRE app.js.
+   ATLAS CARGOJET TRACKER — uppstartsskärm. Nedärvd från atlas-earth/chokepoint:
+   mäter FAKTISKA API-anrop (hakar i window.fetch), fyller siffror och kedjor
+   med riktig data ur svaren och släpper igenom när trackerns kritiska
+   resurser är klara. Laddas FÖRE övriga skript.
    ========================================================================== */
 
 (() => {
   "use strict";
 
-  const CRITICAL = ["/api/config", "/api/overview"];
+  const CRITICAL = ["/api/trackers", "/history", "/current"];
   const HARD_TIMEOUT_MS = 22000;
   const MIN_SHOW_MS = 4200;
   const CHAIN_MS = 1150;
@@ -25,17 +26,17 @@
     <div class="boot-vignette"></div>
     <div class="boot-inner">
       <div class="boot-head">
-        <div class="boot-classified">◤ CHOKEPOINT MONITOR ◢ &nbsp;MARITIME STRESS → MARKETS</div>
+        <div class="boot-classified">◤ CARGOJET TRACKER ◢ &nbsp;ADS-B → BLOCKTIMMAR → KONSENSUS</div>
         <h1 class="boot-title" data-txt="ATLAS">ATLAS</h1>
-        <div class="boot-sub">CHOKEPOINT &nbsp;·&nbsp; FLASKHALSAR → MARKNADEN &nbsp;·&nbsp; TERMINAL 01</div>
+        <div class="boot-sub">TSX: CJT &nbsp;·&nbsp; FLYGFRAKT → MARKNADEN &nbsp;·&nbsp; TERMINAL 01</div>
       </div>
 
       <div class="boot-stats" id="boot-stats">
-        <div class="stat"><b data-to="11">0</b><span>FLASKHALSAR</span></div>
-        <div class="stat"><b data-to="2800">0</b><span>DAGAR SATELLIT-AIS</span></div>
-        <div class="stat"><b data-to="12">0</b><span>KOPPLADE INSTRUMENT</span></div>
-        <div class="stat"><b data-to="6">0</b><span>KRISER ÅTERFUNNA</span></div>
-        <div class="stat"><b data-to="188">0</b><span>DAGAR HORMUZ STÄNGT</span></div>
+        <div class="stat"><b data-key="fleet">0</b><span>PLAN I FLOTTAN</span></div>
+        <div class="stat"><b data-key="quarters">0</b><span>KVARTAL I BACKTEST</span></div>
+        <div class="stat"><b data-key="hits">0</b><span>RÄTT RIKTNING</span></div>
+        <div class="stat"><b data-key="hours">0</b><span id="boot-hours-label">FLYGTIMMAR HITTILLS</span></div>
+        <div class="stat"><b data-key="days">0</b><span>DYGN MED ADS-B</span></div>
       </div>
 
       <div class="boot-mid">
@@ -50,7 +51,7 @@
           <div class="radar-blip b3"></div>
         </div>
         <div class="boot-chains">
-          <div class="chains-head">TRANSMISSIONSKEDJOR<span>HISTORISKA EPISODER</span></div>
+          <div class="chains-head">TRANSMISSIONSKEDJOR<span id="boot-chain-tag">SIGNALFLÖDE</span></div>
           <div class="chain-stack" id="boot-chains"></div>
         </div>
       </div>
@@ -90,8 +91,8 @@
   @keyframes flick { 0%,97%,100%{opacity:.85} 98%{opacity:.25} }
   .boot-title { position:relative; margin:8px 0 4px; font-size:clamp(44px,9vw,86px);
     letter-spacing:18px; font-weight:400; text-shadow:0 0 26px rgba(0,255,200,.55);
-    animation:pulse 3.4s ease-in-out infinite; }
-  @keyframes pulse { 50% { text-shadow:0 0 44px rgba(0,255,200,.85); } }
+    animation:bootpulse 3.4s ease-in-out infinite; }
+  @keyframes bootpulse { 50% { text-shadow:0 0 44px rgba(0,255,200,.85); } }
   .boot-title::before, .boot-title::after { content:attr(data-txt); position:absolute; inset:0; }
   .boot-title::before { color:#ff2e63; animation:gl1 3.1s infinite steps(1); }
   .boot-title::after  { color:#4dc3ff; animation:gl2 2.7s infinite steps(1); }
@@ -187,15 +188,13 @@
   .radar-blip.dyn { animation:blipDyn 2s ease-out forwards; }
   @keyframes blipDyn { 0%{opacity:1;transform:scale(2.2);} 40%{opacity:.7;}
     100%{opacity:0;transform:scale(.7);} }
-  .chain .imp { font-family:"Share Tech Mono",monospace; font-size:9px; margin-left:3px;
-    opacity:0; animation:ndIn .3s ease forwards; }
-  .chain .imp.up { color:#2aff9e; } .chain .imp.dn { color:#ff6b6b; }
   `;
 
   document.head.appendChild(style);
+  const pendingStats = {};
   const mount = () => {
     document.body.insertBefore(el, document.body.firstChild);
-    runCounters();
+    Object.entries(pendingStats).forEach(([k, v]) => setStat(k, v));
     pushChain();
     setTimeout(pushChain, 480);
   };
@@ -204,20 +203,55 @@
   el.style.cursor = "pointer";
   el.addEventListener("click", () => dismiss());
 
-  function runCounters() {
-    document.querySelectorAll("#boot-stats b[data-to]").forEach((b) => {
-      const to = parseInt(b.dataset.to, 10) || 0;
-      const dur = 1500 + Math.random() * 900;
-      const t0 = performance.now();
-      const step = (now) => {
-        const p = Math.min(1, (now - t0) / dur);
-        const eased = 1 - Math.pow(1 - p, 3);
-        b.textContent = Math.round(to * eased).toLocaleString("sv-SE");
-        if (p < 1 && !state.dismissed) requestAnimationFrame(step);
-        else b.textContent = to.toLocaleString("sv-SE");
-      };
-      requestAnimationFrame(step);
-    });
+  // ---------- Siffror ur riktiga API-svar ----------
+  function setStat(key, value) {
+    if (!Number.isFinite(value)) return;
+    const b = el.querySelector(`#boot-stats b[data-key="${key}"]`);
+    if (!b || !b.isConnected) { pendingStats[key] = value; return; }
+    const from = parseInt(String(b.textContent).replace(/\D/g, ""), 10) || 0;
+    const dur = 1100 + Math.random() * 700;
+    const t0 = performance.now();
+    const step = (now) => {
+      const p = Math.min(1, (now - t0) / dur);
+      const v = Math.round(from + (value - from) * (1 - Math.pow(1 - p, 3)));
+      b.textContent = v.toLocaleString("sv-SE");
+      if (p < 1 && !state.dismissed) requestAnimationFrame(step);
+      else b.textContent = Math.round(value).toLocaleString("sv-SE");
+    };
+    requestAnimationFrame(step);
+  }
+
+  // Generiska kedjor tills backtesten har laddats — ersätts då av riktiga kvartal.
+  let CHAINS = [
+    ["ADS-B", "CARGOJET-FLOTTAN", "FLYGTIMMAR", "BLOCKTIMMAR", "INTÄKT"],
+    ["MODELL", "TIMMAR × RATER", "PROGNOS", "VS KONSENSUS", "SIGNAL"],
+    ["LIVE", "ADSB.LOL + ADSB.FI", "SPÅR PER PLAN", "KVARTAL HITTILLS", "HIGH / LOW"],
+  ];
+
+  function absorb(url, d) {
+    if (!d || typeof d !== "object") return;
+    if (url.includes("/api/cargojet/live")) {
+      setStat("fleet", d.fleet_size);
+    } else if (url.includes("/api/tracker/") && url.includes("/history")) {
+      setStat("quarters", d.total);
+      setStat("hits", d.hits);
+      if (Array.isArray(d.items) && d.items.length) {
+        CHAINS = d.items.map((it) => [
+          `${it.quarter} ${it.year}`,
+          `KONS ${Number(it.consensus_mcad).toFixed(1)}`,
+          `TRACKER ${it.signal} ${it.signal === "HIGHER" ? "▲" : "▼"}`,
+          `UTFALL ${Number(it.result_mcad).toFixed(1)} ${it.result_vs_consensus === "HIGHER" ? "▲" : "▼"}`,
+          it.correct ? "RÄTT ✓" : "FEL ✗",
+        ]);
+        const tag = document.getElementById("boot-chain-tag");
+        if (tag) tag.textContent = `BACKTEST ${d.hits}/${d.total}`;
+      }
+    } else if (url.includes("/api/tracker/") && url.includes("/current")) {
+      setStat("hours", d.hours);
+      setStat("days", d.covered_days);
+      const label = document.getElementById("boot-hours-label");
+      if (label && d.quarter) label.textContent = `FLYGTIMMAR ${d.quarter} ${d.year}`;
+    }
   }
 
   function fireBlip() {
@@ -244,17 +278,6 @@
 
   const short = (u) => String(u).replace(/^.*\/api\//, "").split("?")[0].slice(0, 34);
 
-  // VERKLIGA episoder som motorn återfunnit ur PortWatch-datan — inte påhitt.
-  const CHAINS = [
-    ["2026",  "HORMUZ STÄNGT (dag 180+)",  "TANKFRAKT",        "BRENT ▲",     "XLE ▲"],
-    ["2023",  "RÖDA HAVET / BAB-EL-MANDEB", "OMVÄG GODAHOPPSUDDEN", "FRAKTRATER ▲", "BDRY ▲"],
-    ["2021",  "EVER GIVEN — SUEZ",          "6 DYGNS BLOCKAD",  "CONTAINERFRAKT ▲", "BOAT ▲"],
-    ["2023",  "PANAMA-TORKAN",              "DJUPGÅENDEGRÄNS",  "SPANNMÅLSEXPORT ▼", "ZC=F ▲"],
-    ["2022",  "UKRAINA-INVASIONEN",         "BOSPOREN STRYPS",  "VETE ▲",      "ZW=F ▲"],
-    ["2020",  "COVID-19",                   "EFTERFRÅGEKOLLAPS", "TONNAGE ▼",  "BRENT ▼"],
-    ["LIVE",  "SATELLIT-AIS (PORTWATCH)",   "STRESSINDEX 0–100", "EPISODSTART", "SCENARIOBAND"],
-  ];
-
   let chainIdx = 0;
   function pushChain() {
     const box = document.getElementById("boot-chains");
@@ -275,7 +298,8 @@
         a.style.animationDelay = (0.14 + i * 0.2) + "s";
         row.appendChild(a);
       }
-      const up = txt.includes("▲"), dn = txt.includes("▼");
+      const up = txt.includes("▲") || txt.includes("✓");
+      const dn = txt.includes("▼") || txt.includes("✗");
       const n = document.createElement("span");
       n.className = "nd" + (up ? " up" : dn ? " dn" : "");
       n.textContent = txt;
@@ -300,10 +324,10 @@
 
   function phaseFor(p) {
     if (p < 18) return "UPPRÄTTAR FÖRBINDELSE";
-    if (p < 38) return "LÄSER SATELLIT-AIS-HISTORIK";
-    if (p < 58) return "SYNKRONISERAR FLASKHALSAR";
-    if (p < 78) return "ÅTERFINNER HISTORISKA KRISER";
-    if (p < 96) return "KALIBRERAR SCENARIOBAND";
+    if (p < 38) return "SYNKRONISERAR CARGOJET-FLOTTAN";
+    if (p < 58) return "LADDAR BACKTEST";
+    if (p < 78) return "RÄKNAR FLYGTIMMAR HITTILLS";
+    if (p < 96) return "KALIBRERAR GLOBEN";
     return "SYSTEM KLART";
   }
 
@@ -322,8 +346,8 @@
     setPct(p, phaseFor(p));
     const c = document.getElementById("boot-coords");
     if (c) {
-      const lat = (Math.sin(performance.now() / 2400) * 74).toFixed(4);
-      const lon = (Math.cos(performance.now() / 3100) * 168).toFixed(4);
+      const lat = (43.1736 + Math.sin(performance.now() / 2400) * 12).toFixed(4);
+      const lon = (-79.935 + Math.cos(performance.now() / 3100) * 40).toFixed(4);
       c.textContent = `LAT ${lat}  LON ${lon}  ·  ${state.done}/${state.started} KANALER  ·  `
         + `SESSION ${(state.t0 | 0).toString(16).toUpperCase().slice(-6)}`;
     }
@@ -346,6 +370,7 @@
         const ms = Math.round(performance.now() - t);
         log(`  ${r.ok ? "OK " : "!! "}${short(url)}  ${ms} ms`, r.ok ? "ok" : "warn");
         CRITICAL.forEach((c) => { if (url.includes(c)) state.critical.add(c); });
+        if (r.ok) r.clone().json().then((d) => absorb(url, d)).catch(() => {});
         maybeDismiss();
       }
       return r;
@@ -400,6 +425,6 @@
     }
   }, HARD_TIMEOUT_MS);
 
-  log("ATLAS CHOKEPOINT — uppstart", "");
+  log("ATLAS CARGOJET TRACKER — uppstart", "");
   log("▸ autentiserar mot lokal kärna …", "dim");
 })();

@@ -23,6 +23,22 @@ function esc(s) {
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
 
+// ---------- Kartlager ----------
+// Hackathon-läge: bara fraktflyg på kartan. Sätt ett lager till true för att
+// slå på det igen — paneldata (ranking, analyser) laddas oavsett.
+const MAP_LAYERS = {
+  chokepoints: false, lanes: false, alerts: false,   // alerts = GDACS-larm (jordbävning, cyklon …) + hamnstörningar
+  ports: false, vessels: false, density: false, drift: false,
+  shadow: false, dark: false, sar: false, satellites: false,
+  flights: "none",    // "none" (Cargojet ritas av cargojet.js) · "cargo" · "cjt" · "all"
+};
+function showFlight(f) {
+  if (MAP_LAYERS.flights === "none") return false;
+  if (MAP_LAYERS.flights === "all") return true;
+  if (MAP_LAYERS.flights === "cjt") return (f.flight || "").toUpperCase().startsWith("CJT");
+  return !!f.cargo;
+}
+
 // ---------- Cesium-init (samma look som atlas-earth) ----------
 Cesium.Ion.defaultAccessToken = undefined;
 
@@ -53,7 +69,8 @@ const viewer = new Cesium.Viewer("globe", {
 viewer.scene.globe.enableLighting = false;
 viewer.scene.skyAtmosphere.show = true;
 viewer.camera.setView({
-  destination: Cesium.Cartesian3.fromDegrees(30, 25, 24000000),
+  // Cargojets nät: Hamilton-navet (YHM) och Nordamerika
+  destination: Cesium.Cartesian3.fromDegrees(-88, 44, 8500000),
 });
 
 // Landsgränser (Natural Earth, samma fil som atlas-earth) — Esri-satelliten
@@ -92,7 +109,7 @@ function setDensity(on) {
     densityLayer = null;
   }
 }
-setDensity(true);
+setDensity(MAP_LAYERS.density);
 document.addEventListener("change", (e) => {
   if (e.target && e.target.id === "density-toggle") setDensity(e.target.checked);
 });
@@ -167,6 +184,7 @@ function pulseSize(base, active) {
 }
 
 function renderGlobe(items) {
+  if (!MAP_LAYERS.chokepoints) return;
   for (const item of items) {
     const color = Cesium.Color.fromCssColorString(scoreColor(item.score));
     const base = item.score == null ? 8 : 9 + Math.min(9, Math.max(0, (item.score - 50) / 5));
@@ -319,7 +337,7 @@ async function loadVessels() {
     const n = (d.items || []).length;
     const szMove = n > 50000 ? 2.2 : n > 20000 ? 2.7 : 3.2;
     const szAnch = n > 50000 ? 1.7 : n > 20000 ? 2.1 : 2.5;
-    for (const v of d.items || []) {
+    for (const v of MAP_LAYERS.vessels ? d.items || [] : []) {
       const anchored = v.nav === 1 || v.nav === 5 || (v.nav == null && (v.sog || 0) < 0.5);
       const pt = vesselPoints.add({
         position: Cesium.Cartesian3.fromDegrees(v.lon, v.lat),
@@ -360,6 +378,7 @@ let alertEntities = [];
 function drawLanes(lanes) {
   laneEntities.forEach((e) => viewer.entities.remove(e));
   laneEntities = [];
+  if (!MAP_LAYERS.lanes) return;
   for (const lane of lanes) {
     const color = Cesium.Color.fromCssColorString(
       RISK_COLORS[lane.risk_level] || "#2aa9ff");
@@ -446,6 +465,7 @@ function selectVessel(v) {
 function drawAlerts(alerts) {
   alertEntities.forEach((e) => viewer.entities.remove(e));
   alertEntities = [];
+  if (!MAP_LAYERS.alerts) return;
   for (const a of alerts || []) {
     const red = a.alertlevel === "RED";
     alertEntities.push(viewer.entities.add({
@@ -520,6 +540,7 @@ let driftEntities = [];
 function drawDrift(d) {
   driftEntities.forEach((e) => viewer.entities.remove(e));
   driftEntities = [];
+  if (!MAP_LAYERS.drift) return;
   const add = (obs, label, big) => {
     const css = DRIFT_COLORS[obs.label || obs.kind] || "#b46bff";
     const color = Cesium.Color.fromCssColorString(css);
@@ -628,6 +649,7 @@ async function loadPorts() {
     for (const p of d.items || []) {
       if (!p.portid) continue;
       portsById[p.portid] = p;
+      if (!MAP_LAYERS.ports) continue;
       const size = 3 + Math.min(5, Math.sqrt((p.vessels_per_year || 0) / 4000));
       const hot = p.live_inbound && p.live_inbound.inbound > 0;
       portEntities.push(viewer.entities.add({
@@ -652,7 +674,7 @@ async function loadPorts() {
         properties: { portId: p.portid },
       }));
     }
-    for (const dis of d.disruptions || []) {
+    for (const dis of MAP_LAYERS.alerts ? d.disruptions || [] : []) {
       const red = dis.alertlevel === "RED";
       disruptionEntities.push(viewer.entities.add({
         position: Cesium.Cartesian3.fromDegrees(dis.lon, dis.lat),
@@ -890,6 +912,7 @@ async function loadFlights() {
     airData = d;
     planePoints.removeAll();
     for (const f of d.items || []) {
+      if (!showFlight(f)) continue;
       const altM = (f.alt_ft || 30000) * 0.3048;
       planePoints.add({
         position: Cesium.Cartesian3.fromDegrees(f.lon, f.lat, altM),
@@ -938,7 +961,7 @@ async function loadShadow() {
     shadowData = await getJSON("/api/shadowfleet");
     watchEntities.forEach((e) => viewer.entities.remove(e));
     watchEntities = [];
-    for (const v of shadowData.watchlist_live || []) {
+    for (const v of MAP_LAYERS.shadow ? shadowData.watchlist_live || [] : []) {
       const c = Cesium.Color.fromCssColorString("#ff2e63");
       watchEntities.push(viewer.entities.add({
         position: Cesium.Cartesian3.fromDegrees(v.lon, v.lat),
@@ -1017,7 +1040,7 @@ async function loadDark() {
     darkData = d;
     darkEntities.forEach((e) => viewer.entities.remove(e));
     darkEntities = [];
-    for (const v of d.dark || []) {
+    for (const v of MAP_LAYERS.dark ? d.dark || [] : []) {
       const c = Cesium.Color.fromCssColorString(v.tanker ? "#ff2e63" : "#ff8c42");
       darkEntities.push(viewer.entities.add({
         position: Cesium.Cartesian3.fromDegrees(v.lon, v.lat),
@@ -1034,7 +1057,7 @@ async function loadDark() {
         },
       }));
     }
-    for (const t of d.sts || []) {
+    for (const t of MAP_LAYERS.dark ? d.sts || [] : []) {
       darkEntities.push(viewer.entities.add({
         position: Cesium.Cartesian3.fromDegrees(t.lon, t.lat),
         point: { pixelSize: 10,
@@ -1089,7 +1112,7 @@ async function loadSatellites() {
     satPoints.removeAll();
     satLabels.forEach((e) => viewer.entities.remove(e));
     satLabels = [];
-    for (const s of d.items || []) {
+    for (const s of MAP_LAYERS.satellites ? d.items || [] : []) {
       const hl = s.highlight;
       satPoints.add({
         position: Cesium.Cartesian3.fromDegrees(s.lon, s.lat, s.alt_km * 1000),
@@ -1183,7 +1206,7 @@ async function loadSar() {
     const d = await getJSON("/api/sar");
     sarEntities.forEach((e) => viewer.entities.remove(e));
     sarEntities = [];
-    for (const det of d.detections || []) {
+    for (const det of MAP_LAYERS.sar ? d.detections || [] : []) {
       // Storleksbestämda detektioner (SAM) ritas större och bär längden —
       // ett 360 m skrov är en VLCC, ett 120 m är en kustare.
       const sized = !!det.length_m;

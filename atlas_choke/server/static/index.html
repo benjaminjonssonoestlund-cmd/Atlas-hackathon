@@ -3,202 +3,84 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atlas Chokepoint — sjöfartens flaskhalsar → marknaden</title>
-  <meta name="description" content="Live-stressindex för världshandelns 11 flaskhalsar ur satellit-AIS (IMF PortWatch) + event-studerade prisscenarier för kopplade råvaror och aktier.">
+  <title>Atlas — Cargojet tracker</title>
   <meta name="theme-color" content="#04070b">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2304070b'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%2300ffc8' stroke-width='2'/%3E%3Cpath d='M10 16h12M16 10v12' stroke='%23ff4d4d' stroke-width='2'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/cesium@1.119/Build/Cesium/Cesium.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/cesium@1.119/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-  <link href="/static/style.css?v=1" rel="stylesheet">
-  <link href="/static/choke.css?v=4" rel="stylesheet">
-  <!-- Laddas FÖRE app.js så att inget API-anrop hinner passera omätt. -->
-  <script src="/static/boot.js?v=1"></script>
+  <link href="/static/tracker.css?v=3" rel="stylesheet">
+  <!-- Laddas FÖRE övriga skript så att inget API-anrop hinner passera omätt. -->
+  <script src="/static/boot.js?v=2"></script>
 </head>
 <body>
   <header id="topbar">
-    <div id="brand">ATLAS<span> · CHOKEPOINT — flaskhalsar → marknaden</span></div>
-    <div id="ticker"><span class="dim">Hämtar marknadsdata …</span></div>
-    <button id="replay-open" title="Spela upp 2019 → idag: se historiens kriser tändas">▶ TIDSMASKIN</button>
-    <button id="brief-open" title="Automatgenererad lägesrapport ur all live-data">IDAG</button>
-    <div id="ais-badge" class="badge off" title="Live-AIS (AISStream)">AIS</div>
+    <div id="brand">ATLAS<span> · TRACKER TERMINAL</span></div>
+
+    <div class="tracker-switch">
+      <button id="tracker-select" class="tracker-select" type="button" aria-haspopup="menu" aria-expanded="false">
+        <span class="ts-kicker">MODUL</span>
+        <span id="tracker-name">…</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div id="tracker-menu" class="tracker-menu" role="menu" hidden></div>
+    </div>
+
+    <div id="ticker" class="ticker"><span class="dim">Hämtar trackerdata …</span></div>
+
+    <div class="top-right">
+      <div id="clock" class="clock"></div>
+      <div id="mode-badge" class="mode-badge">
+        <span id="live-dot" class="live-dot"></span><span id="live-label">LIVE</span>
+        <span id="live-count" class="live-count"></span>
+      </div>
+      <button id="home-view" class="icon-btn" type="button" aria-label="Återställ vy" title="Återställ vy">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M12 2v5M12 17v5M2 12h5M17 12h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <button id="fullscreen" class="icon-btn" type="button" aria-label="Fullskärm" title="Fullskärm" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 10V8a5 5 0 0 1 5-5h2M14 3h2a5 5 0 0 1 5 5v2M21 14v2a5 5 0 0 1-5 5h-2M10 21H8a5 5 0 0 1-5-5v-2"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
   </header>
 
-  <div id="replay-bar" class="hidden">
-    <button id="replay-stop">■</button>
-    <div class="replay-track"><div id="replay-fill"></div></div>
-    <span id="replay-date"></span>
-    <span id="replay-event"></span>
-  </div>
+  <main id="stage" class="stage">
+    <div id="globe" class="globe"></div>
+    <div class="hud-corners" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <div id="hud-readout" class="hud-readout"></div>
 
-  <div id="brief-overlay" class="hidden">
-    <div id="brief-panel">
-      <button id="brief-close">×</button>
-      <div id="brief-body"></div>
-    </div>
-  </div>
-
-  <div id="main">
-    <aside id="sidebar">
-      <section class="panel">
-        <h3>Stressläge just nu</h3>
-        <p class="hint">Världshandelns 11 flaskhalsar, rankade efter stress.
-        Indexet mäter dagligt tonnage (DWT) genom sundet mot en robust baslinje
-        ur <b>IMF PortWatch</b> satellit-AIS (släpar ~5 dygn). Klicka för
-        analys &amp; prognos.</p>
-        <div id="ranking" class="mini dim">Bygger analys av 7 års satellit-AIS …<div class="loadbar"></div></div>
-      </section>
-
-      <section class="panel">
-        <h3>Scenario <span class="sim-tag">SIMULERING</span></h3>
-        <p class="hint">Vad händer om en flaskhals stängs? Samma motorer som
-        live-analysen räknar om risk, förseningar och berörda handelsvägar —
-        och visar vad marknaden <b>faktiskt gjorde</b> vid historisk stress i
-        just det sundet.</p>
-        <div class="row">
-          <select id="scenario-select" style="flex:1"></select>
-          <button id="scenario-run" class="small">Kör</button>
-        </div>
-      </section>
-
-      <section class="panel">
-        <h3>Metod — ärligt varudeklarerad</h3>
-        <div class="hint" style="margin-top:8px">
-          <b>1. Stress:</b> 7d-tonnage mot median/MAD-baslinje ([t−365, t−45] d).
-          Vid episodstart <b>fryses baslinjen</b> tills trafiken återhämtat sig —
-          annars normaliserar indexet en långvarig kris (Hormuz 2026).<br><br>
-          <b>2. Episoder:</b> riktad z ≥ 1,5 startar en episod. Motorn återfinner
-          COVID-19, Ever Given, Ukraina-invasionen, Panama-torkan, Röda
-          havet-krisen och Hormuz-stängningen — utan att ha fått dem berättade.<br><br>
-          <b>3. Prognos:</b> empiriska kvantiler av kopplade instruments utfall
-          efter historiska episodstarter (+5/+10/+20 handelsdagar), jämfört mot
-          instrumentets basnivå. Analoger, inte regressioner — N visas alltid.
-          <b>Ej finansiell rådgivning.</b>
-        </div>
-      </section>
-
-      <section class="panel">
-        <h3>Drivande fartyg → råvaror</h3>
-        <p class="hint">Manöverstörda fartyg (AIS NavStatus "ej under kontroll"/
-        "begränsad manöver"), zon-loitering, GFW:s satellit-loitering och
-        omlastningar till havs, samt officiella "VESSEL ADRIFT"-varningar (NGA).
-        Tankers nära oljesund = utbudsrisk; många loitrande tankers = flytande
-        lager/skuggflotta. Klicka en rad för sundets detaljer.</p>
-        <div id="drift-panel" class="mini dim">Läser driftdata …<div class="loadbar"></div></div>
-      </section>
-
-      <section class="panel">
-        <h3>Mörka fartyg ◌ &amp; omlastningar ⇄</h3>
-        <p class="hint">Fartyg som <b>tystnat 6–72 h</b> efter att senast ha
-        setts i en bevakad zon (att stänga av AIS är standardmetoden för att
-        dölja sanktionerad last), samt fartygspar som ligger <b>&lt;500 m från
-        varandra under 3 knop i &gt;30 min</b> — möjliga omlastningar till havs.
-        Trösklar från ais-tracker. Tystnad utanför zon räknas som täckningshål,
-        inte uppsåt.</p>
-        <div id="dark-panel" class="mini dim">Läser AIS-gap …<div class="loadbar"></div></div>
-      </section>
-
-      <section class="panel">
-        <h3>Radardetektion (Sentinel-1 + SAM)</h3>
-        <p class="hint">Fartyg som syns i <b>radar</b> oavsett om de sänder AIS.
-        Tröskling räknar skroven; <b>SAM</b> (segment-geospatial) mäter
-        längden på de tydligaste — 360 m är en VLCC, 120 m en kustare.
-        Orange punkter är storleksbestämda.</p>
-        <div id="sar-panel" class="mini dim">Läser radardata …</div>
-      </section>
-
-      <section class="panel">
-        <h3>Satelliter &amp; radarpassager</h3>
-        <p class="hint">Satelliter i omloppsbana ur Celestraks banelement.
-        <b>Gula</b> = radarsatelliter (Sentinel-1, RADARSAT) — det är de som
-        producerar bilderna vårt mörka-fartyg-lager bygger på. Listan visar
-        <b>när sundet nästa gång kan avbildas</b>, oberoende av AIS.</p>
-        <div id="sat-panel" class="mini dim">Beräknar banor …<div class="loadbar"></div></div>
-      </section>
-
-      <section class="panel">
-        <h3>⚑ Bevakade skuggflottefartyg</h3>
-        <p class="hint">1 201 <b>namngivna</b> fartyg kopplade till sanktionerad
-        oljehandel (öppen tredjepartsanalys, MIT-licens). Matchas mot live-AIS
-        på MMSI — röda ⚑-markörer på globen. Träff = fartyget är <b>utpekat i
-        öppen källa</b>, inte rättsligt fastställt.</p>
-        <div id="watch-panel" class="mini dim">Matchar bevakningslistan …<div class="loadbar"></div></div>
-      </section>
-
-      <section class="panel">
-        <h3>Flaggstat &amp; skuggflotta</h3>
-        <p class="hint">Fartygets flaggstat ligger i MMSI:s tre första siffror
-        (ITU MID). Sanktionerad olja flyttas av en <b>skuggflotta</b> under små
-        register vars tankflottor växte kraftigt efter 2022 (Gabon, Kamerun,
-        Cooköarna…). Andelen högriskflaggade tankers vid ett oljesund — mot ~5 %
-        globalt — är en sanktionsflödesindikator. Klicka ett sund för siffrorna.
-        <b>Flagg är indikation, inte bevis.</b></p>
-      </section>
-
-      <section class="panel">
-        <h3>Flygfrakt ✈ — substitutionskanalen</h3>
-        <p class="hint">Gula prickar i luften är <b>fraktflyg</b> (ADS-B, live).
-        När ett sund stryps flyttar högvärdesgods från sjö till luft — hög
-        fraktandel över ett stört sund bekräftar att störningen biter i
-        realekonomin, och är ledande för flygfraktrater (FDX, UPS, ATSG).
-        Klicka ett sund för zonens siffror.</p>
-      </section>
-
-      <section class="panel">
-        <h3>Handelsvägar &amp; försening</h3>
-        <p class="hint">Linjerna är de 10 stora handelsvägarna (tjocklek =
-        TEU-andel). Färg = <b>förseningsrisk</b> för vägens värsta flaskhals:
-        <span style="color:#2aa9ff">■ låg</span> ·
-        <span style="color:#ffb454">■ förhöjd</span> ·
-        <span style="color:#ff4d4d">■ hög</span>.
-        Risken väger <b>väder 48 h</b> (Open-Meteo: byar/våghöjd),
-        <b>cyklonlarm</b> (GDACS 🌀), <b>live-kö</b> (ankrade fartyg, AIS) och
-        <b>pågående störningsepisod</b> (PortWatch-motorn) — varje poängbidrag
-        redovisas i detaljpanelen.</p>
-        <label style="display:block;cursor:pointer;font-size:13px;margin-top:4px">
-          <input type="checkbox" id="density-toggle" checked>
-          Global sjöfartsdensitet (Världsbanken/IMF, alla kontinenter)</label>
-      </section>
-
-      <section class="panel">
-        <h3>Datakällor</h3>
-        <div class="hint" style="margin-top:8px">
-          <b>IMF PortWatch</b> — dagliga chokepoint-passager ur satellit-AIS,
-          2019→, öppet &amp; nyckelfritt.<br>
-          <b>Yahoo Finance</b> — priser för kopplade råvaror/ETF:er, nyckelfritt.<br>
-          <b>AISStream</b> — live-fartyg, global prenumeration (gratisnyckel;
-          instabil tjänst — kärnan degraderar snyggt utan den).<br>
-          <b>Fintraffic Digitraffic</b> — finsk nationell AIS, Östersjön
-          (CC BY 4.0, nyckelfri).<br>
-          <b>BarentsWatch</b> — norsk AIS inkl. satellit, EEZ+Svalbard
-          (gratis konto, valfri).<br>
-          <b>Global Fishing Watch</b> — loitering/omlastningar ur satellit-AIS
-          (gratis token, valfri).<br>
-          <b>NGA MSI</b> — officiella sjövarningar om drivande fartyg
-          (nyckelfritt).<br>
-          <b>Open-Meteo + GDACS</b> — väder 48 h + katastroflarm (nyckelfritt).<br>
-          <b>OpenSky Network</b> — global flygtrafik, ~12 000 flygplan
-          (anonym, nyckelfritt).<br>
-          <b>adsb.lol + adsb.fi + adsb.one</b> — ADS-B-nätverk kring sunden,
-          mergade (ODbL 1.0, nyckelfritt).<br>
-          <b>Sentinel-1 (Planetary Computer)</b> — radardetektion av fartyg
-          utan AIS (nyckelfritt).<br>
-          <b>Celestrak</b> — satellitbanor/TLE (nyckelfritt).
-        </div>
-      </section>
+    <aside id="history-panel" class="panel history-panel">
+      <header class="panel-head">
+        <h3>HISTORY <span class="head-tag">BACKTEST</span></h3>
+        <button id="history-collapse" class="collapse-btn" type="button" aria-label="Fäll ihop">▾</button>
+      </header>
+      <div class="panel-body">
+        <div id="history-summary" class="history-summary"><div class="loadbar"></div></div>
+        <div id="history-filters" class="chips"></div>
+        <div id="history-list" class="history-list"></div>
+      </div>
     </aside>
 
-    <div id="globe-wrap">
-      <div id="globe"></div>
-      <div id="hint-overlay">Klicka på en flaskhals för stressanalys, episodhistorik och prisscenarier.</div>
-    </div>
+    <section id="sheet" class="panel sheet">
+      <header class="sheet-head"><span class="sheet-title">…</span></header>
+      <div class="sheet-body"><div class="loadbar"></div></div>
+    </section>
 
-    <aside id="detail" class="hidden">
-      <button id="detail-close">×</button>
-      <div id="detail-content"></div>
-    </aside>
-  </div>
+    <aside id="flight-card" class="panel flight-card" hidden></aside>
+    <div id="globe-credits" class="globe-credits"></div>
+  </main>
 
-  <script src="/static/app.js?v=20"></script>
+  <script src="/static/globe.js?v=3"></script>
+  <script src="/static/cargojet.js?v=8"></script>
+  <script src="/static/tracker.js?v=4"></script>
 </body>
 </html>

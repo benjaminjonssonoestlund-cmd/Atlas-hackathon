@@ -8,3 +8,7 @@ atlas_choke/data/live_history.json
 .env
 vessel_seen.json
 atlas_choke/data/_sar_work/
+atlas_choke/data/cargojet/
+
+# CJT-nowcast: råa källsvar och härledda tabeller (reproducerbara via python -m cjt_nowcast)
+cjt_nowcast/data/

@@ -1,0 +1,6 @@
+dep,arr,segment,directional,note
+MIA,MIA,acmi,,"Tur och retur från MIA med osedd mellanlandning = MIA söderut (användarbeslut 2026-09-13)"
+CVG,latam,acmi,,"CVG söderut, DHL-nätet (spec)"
+MIA,latam,acmi,,"MIA söderut, DHL-nätet, t.ex. SJU–MIA (spec, användarbeslut 2026-09-13)"
+cc:CA,cc:CA,domestic,,"Inrikes Kanada, alla tider (spec)"
+*,*,charter,,"Allt annat: CVG–Kanada, SDF–Kanada, US-inrikes, Bermuda, positionering, transpacifiskt, LGG–TLV (spec, användarbeslut 2026-09-13)"

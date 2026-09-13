@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OPERATION CARGOJET — Revenue Intelligence</title>
+  <link rel="stylesheet" href="/static/dossier.css?v=3">
+</head>
+<body>
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">◆</span>
+      <span class="brand-name">OPERATION CARGOJET</span>
+      <span class="brand-sub">Revenue Intelligence · TSX: CJT</span>
+    </div>
+    <div class="classification" aria-label="Klassificering">TOP SECRET // EYES ONLY</div>
+    <div class="topbar-meta">
+      <span class="meta-label">Dossier byggd</span>
+      <span id="built-at" class="mono">—</span>
+      <button id="refresh" class="btn-ghost" type="button" title="Räkna om med senaste data">↻ Uppdatera</button>
+    </div>
+  </header>
+
+  <main id="app" class="app" aria-busy="true">
+    <section id="loading" class="loading">
+      <div class="loading-code mono">DEKRYPTERAR DOSSIER<span class="blink">_</span></div>
+      <div class="loading-sub">Modellen skattas om per kvartal — tar några sekunder.</div>
+    </section>
+
+    <div id="content" hidden>
+      <!-- 01 · Signal -->
+      <section class="panel signal" aria-labelledby="sig-h">
+        <div class="panel-head">
+          <span class="code">DOSSIER 01</span>
+          <h2 id="sig-h">Q3 2026 — omsättning mot konsensus</h2>
+          <span class="stamp" aria-hidden="true">CLASSIFIED</span>
+        </div>
+        <div class="signal-grid">
+          <div class="hero">
+            <div class="hero-label">Signal</div>
+            <div id="hero-verdict" class="hero-verdict">—</div>
+            <div id="hero-delta" class="hero-delta">—</div>
+            <p id="hero-caveat" class="hero-caveat"></p>
+          </div>
+          <div class="tiles">
+            <div class="tile"><div class="tile-label">Modellens prognos</div><div id="t-model" class="tile-value">—</div><div class="tile-sub">mkr CAD</div></div>
+            <div class="tile"><div class="tile-label">Konsensus</div><div id="t-cons" class="tile-value">—</div><div id="t-cons-sub" class="tile-sub">mkr CAD</div></div>
+            <div class="tile"><div class="tile-label">Blocktimmar YoY (ADS-B)</div><div id="t-hours" class="tile-value">—</div><div id="t-hours-sub" class="tile-sub">—</div></div>
+            <div class="tile"><div class="tile-label">Träffsäkerhet historik</div><div id="t-hits" class="tile-value">—</div><div id="t-hits-sub" class="tile-sub">—</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 · Scenario -->
+      <section class="panel" aria-labelledby="sim-h">
+        <div class="panel-head">
+          <span class="code">DOSSIER 02</span>
+          <h2 id="sim-h">Simulering — vad krävs för att slå konsensus?</h2>
+        </div>
+        <div class="sim-grid">
+          <div class="sim-controls">
+            <label for="hours-slider" class="ctl-label">Q3 blocktimmar mot Q3 2025</label>
+            <div class="slider-row">
+              <input id="hours-slider" type="range" min="-20" max="20" step="0.1" value="0" aria-describedby="sim-readout">
+              <output id="hours-out" for="hours-slider" class="mono">0,0 %</output>
+            </div>
+            <div class="preset-row" role="group" aria-label="Förinställningar">
+              <button class="btn-ghost" data-preset="measured" type="button">ADS-B viktat</button>
+              <button class="btn-ghost" data-preset="total" type="button">ADS-B totalt</button>
+              <button class="btn-ghost" data-preset="breakeven" type="button">Brytpunkt</button>
+            </div>
+            <dl id="sim-readout" class="readout">
+              <div><dt>Implicerade kvartalstimmar</dt><dd id="r-hours" class="mono">—</dd></div>
+              <div><dt>Prognos omsättning</dt><dd id="r-rev" class="mono">—</dd></div>
+              <div><dt>Mot konsensus</dt><dd id="r-diff" class="mono">—</dd></div>
+              <div><dt>Brytpunkt (konsensus implicerar)</dt><dd id="r-break" class="mono">—</dd></div>
+            </dl>
+            <div id="sim-verdict" class="verdict" aria-live="polite">—</div>
+          </div>
+          <figure class="chart-card">
+            <figcaption class="chart-title">Prognostiserad omsättning som funktion av blocktimmar
+              <span class="chart-sub">mkr CAD · Q3 2026</span></figcaption>
+            <div class="legend" id="sim-legend"></div>
+            <div id="sim-chart" class="chart" role="img" aria-label="Linjediagram: omsättning mot blocktimmar med konsensus"></div>
+          </figure>
+        </div>
+      </section>
+
+      <!-- 03 · Historik -->
+      <section class="panel" aria-labelledby="hist-h">
+        <div class="panel-head">
+          <span class="code">DOSSIER 03</span>
+          <h2 id="hist-h">Historiska tester — rapporterade blocktimmar som indata</h2>
+        </div>
+        <figure class="chart-card">
+          <figcaption class="chart-title">Omsättning per kvartal: prognos, konsensus och utfall
+            <span class="chart-sub">mkr CAD · modellen skattad bara på tidigare kvartal</span></figcaption>
+          <div class="legend" id="hist-legend"></div>
+          <div id="hist-chart" class="chart" role="img" aria-label="Punktdiagram per kvartal med prognos, konsensus och utfall"></div>
+        </figure>
+        <div class="table-wrap">
+          <table class="intel-table" aria-describedby="hist-h">
+            <thead>
+              <tr>
+                <th scope="col">Kvartal</th><th scope="col">Rapportdag</th>
+                <th scope="col" class="num">Blocktimmar</th><th scope="col" class="num">Timmar YoY</th>
+                <th scope="col" class="num">Prognos</th><th scope="col" class="num">Konsensus</th>
+                <th scope="col">Prognos vs kons.</th><th scope="col" class="num">Utfall</th><th scope="col">Utfall vs kons.</th>
+                <th scope="col">Rätt?</th><th scope="col" class="num">Kurs rapportdag</th>
+              </tr>
+            </thead>
+            <tbody id="hist-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 04 · Fältrapport -->
+      <section class="panel" aria-labelledby="field-h">
+        <div class="panel-head">
+          <span class="code">DOSSIER 04</span>
+          <h2 id="field-h">Fältrapport — Q3 2026 blocktimmar per dag</h2>
+        </div>
+        <figure class="chart-card">
+          <figcaption class="chart-title">Blocktimmar per insamlad dag
+            <span class="chart-sub">ADS-B, okalibrerat — för förändring över tid, inte absolut nivå</span></figcaption>
+          <div id="daily-chart" class="chart" role="img" aria-label="Stapeldiagram: blocktimmar per dag"></div>
+        </figure>
+      </section>
+
+      <footer class="footnote">
+        <p><b>Metod.</b> Historik 2024Q2–2026Q2: Cargojets rapporterade blocktimmar ur MD&amp;A som indata; modellen
+          (YoY-regression på blocktimmar, jet fuel och USD/CAD) skattas bara på kvartal före det testade; utfall ur MD&amp;A.
+          Q3 2026: blocktimmar ur ADS-B-stickprov på veckodagsmatchade dagar; konsensus är forward per 2026-09-11.
+          Bara omsättning mäts mot konsensus.</p>
+        <p class="dim">Ej finansiell rådgivning. ADS-B-data © adsb.lol, ODbL 1.0.</p>
+      </footer>
+    </div>
+  </main>
+
+  <div id="tooltip" class="tooltip" role="tooltip" hidden></div>
+  <script src="/static/dossier.js?v=2"></script>
+</body>
+</html>

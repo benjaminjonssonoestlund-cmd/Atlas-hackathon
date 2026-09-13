@@ -15,6 +15,7 @@ import time
 from pathlib import Path
 
 from fastapi import FastAPI, Response
+from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
@@ -37,6 +38,8 @@ from ..sources.adsb import AdsbSource
 from ..sources.aiscatcher_local import AisCatcherLocalSource
 from ..sources.aisstream import AisStreamSource
 from ..sources.barentswatch import BarentsWatchSource
+from ..sources import cjt_tracker
+from ..sources.cargojet import HISTORY_DAYS, CargojetSource
 from ..sources.digitraffic import DigitrafficSource
 from ..sources.gdacs import GdacsSource
 from ..sources.gfw import GfwSource
@@ -55,6 +58,8 @@ STATIC_DIR = Path(__file__).resolve().parent / "static"
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 
 app = FastAPI(title="Atlas Chokepoint", version="0.1.0")
+# 30 dygn Cargojet-historik är ~5 MB JSON — komprimerat ~1 MB.
+app.add_middleware(GZipMiddleware, minimum_size=2000)
 
 portwatch = PortWatchSource()
 markets = MarketSource()
@@ -69,6 +74,7 @@ gfw = GfwSource()
 nga = NgaWarningsSource()
 opensky = OpenSkySource()
 satellites = SatelliteSource()
+cargojet = CargojetSource()
 
 CHOKEPOINTS: list[dict] = json.loads(
     (DATA_DIR / "chokepoints.json").read_text(encoding="utf-8"))["chokepoints"]
@@ -179,6 +185,7 @@ def _warm() -> None:
     _bundle_nowait()
     ais.ensure_started()
     threading.Thread(target=_grid_loop, daemon=True).start()
+    cargojet.ensure_backfill()
 
 
 # ---------- API ----------
@@ -552,6 +559,68 @@ def api_sar() -> dict:
         return json.loads((DATA_DIR / "sar_detections.json").read_text(encoding="utf-8"))
     except (OSError, ValueError):
         return {"detections": [], "note": "inga radardetektioner ännu"}
+
+
+@app.get("/api/cargojet/live")
+def api_cargojet_live() -> dict:
+    """Cargojets flotta i luften just nu (+ dagens spår som svans)."""
+    return cargojet.live()
+
+
+@app.get("/api/cargojet/history")
+def api_cargojet_history(days: float = 3, day: str | None = None,
+                         since: float | None = None, until: float | None = None) -> dict:
+    """Historiska Cargojet-flygningar: fönster `since`–`until` (epoch), ett arkivdygn
+    (`day`) eller senaste `days` dygn."""
+    import datetime as _dt
+    if since is not None:
+        until = min(until or time.time(), time.time())
+        span = max(0.25, (until - since) / 86400)
+    elif day:
+        d0 = _dt.datetime.fromisoformat(day).replace(tzinfo=_dt.timezone.utc)
+        since, until = d0.timestamp(), (d0 + _dt.timedelta(days=1)).timestamp()
+        span = 1.0
+    else:
+        span = max(0.25, min(float(days), float(HISTORY_DAYS)))
+        until = time.time()
+        since = until - span * 86400
+    pts = 240 if span <= 3 else 120 if span <= 7 else 60 if span <= 31 else 40
+    return cargojet.history(since, until, max_path_points=pts)
+
+
+# ---------- Trackers (UI:ts sidopanel och bottom sheet) ----------
+
+TRACKERS = [{"id": "cargojet", "name": "Cargojet tracker", "ticker": "TSX: CJT"}]
+
+
+@app.get("/api/trackers")
+def api_trackers() -> dict:
+    return {"trackers": TRACKERS, "default": TRACKERS[0]["id"]}
+
+
+@app.get("/api/tracker/cargojet/history")
+def api_tracker_cargojet_history() -> dict:
+    """Backtestens kvartal: konsensus (omsättning), vår riktning, utfall, rätt/fel."""
+    try:
+        items = cjt_tracker.load_history()
+    except (OSError, KeyError, ValueError) as exc:
+        return {"items": [], "error": f"backtesten kunde inte läsas: {exc}"}
+    return {"items": items, "hits": sum(it["correct"] for it in items), "total": len(items),
+            "metric": "REVENUE", "unit": "M CAD",
+            "source": "cjt_nowcast backtest (data/processed/surprise_vs_consensus.csv)"}
+
+
+@app.get("/api/tracker/cargojet/current")
+def api_tracker_cargojet_current() -> dict:
+    """Blocktimmar innevarande kvartal hittills (ADS-B, kalibrerat) mot rapporterade
+    blocktimmar samma tidpunkt 1–2 år bakåt (MD&A, pro rata)."""
+    return cargojet.quarter_to_date()
+
+
+@app.get("/api/cargojet/status")
+def api_cargojet_status() -> dict:
+    return {"backfill": cargojet.status, "history_days": HISTORY_DAYS,
+            "fleet_size": len(cargojet.fleet), "archive": cargojet.archive_days()}
 
 
 @app.get("/api/health")

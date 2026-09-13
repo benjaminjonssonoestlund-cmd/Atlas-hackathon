@@ -370,6 +370,7 @@ class TestAir:
         from atlas_choke.sources.adsb import _is_cargo
         assert _is_cargo("FDX1234", "B77L") is True      # FedEx
         assert _is_cargo("GTI9876", "B748") is True      # Atlas Air
+        assert _is_cargo("CJT510", "B763") is True       # Cargojet
         assert _is_cargo("BAW117", "B77W") is False      # British Airways passagerare
         assert _is_cargo("SAS1909", "A332") is False     # passagerarbolag, frakttyp
         assert _is_cargo("", "MD11") is True             # ren frakttyp utan callsign
