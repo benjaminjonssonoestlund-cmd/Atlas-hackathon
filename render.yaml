@@ -1,0 +1,17 @@
+# Render Blueprint — ett-klicks-deploy av Atlas Chokepoint.
+# På render.com: New → Blueprint → peka på GitHub-repot. Render läser denna.
+services:
+  - type: web
+    name: atlas-hackathon
+    runtime: docker
+    plan: free                # gratis nivå (somnar efter ~15 min inaktivitet)
+    region: frankfurt         # närmast Sverige
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/config
+    autoDeploy: true          # ny commit → ny deploy automatiskt
+    envVars:
+      - key: ATLAS_STRICT_TLS
+        value: "1"
+      # Valfri nyckel — tänder live-fartygslagret. Sätt värdet i Render-dashboarden.
+      - key: AISSTREAM_API_KEY
+        sync: false

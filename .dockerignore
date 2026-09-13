@@ -1,0 +1,22 @@
+# Kopiera inte in runtime-databaser, venv, cache eller hemligheter i bilden
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+.env
+.env.*
+*.log
+.git/
+.pytest_cache/
+atlas_choke/data/cache.db*
+atlas_choke/data/ais_snapshot.json
+atlas_choke/data/health.json
+atlas_choke/data/live_history.json
+atlas_choke/data/_sar_work/
+atlas_choke/data/cargojet/
+cjt_nowcast/data/
+vessel_seen.json
