@@ -9,6 +9,8 @@
   "use strict";
 
   const CRITICAL = ["/api/trackers", "/history", "/current"];
+  // Signal till tracker.js: simuleringen autostartar när skärmen släpper.
+  window.atlasBoot = true;
   const HARD_TIMEOUT_MS = 22000;
   const MIN_SHOW_MS = 4200;
   const CHAIN_MS = 1150;
@@ -400,6 +402,8 @@
     log("◤ ÅTKOMST BEVILJAD ◢", "grant boot-grant");
     setTimeout(() => {
       el.classList.add("done");
+      window.atlasBootDone = true;
+      window.dispatchEvent(new Event("atlas:boot-done"));
       setTimeout(() => el.remove(), 650);
     }, 620);
   }

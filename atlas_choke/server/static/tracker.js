@@ -18,6 +18,7 @@
   const HISTORY_POLL_MS = 600000;
   const SPEEDS = [{ v: 3600, label: "1H/S" }, { v: 21600, label: "6H/S" }, { v: 86400, label: "1D/S" }];
   const FILTERS = ["ALL", "CORRECT", "WRONG", "HIGHER", "LOWER"];
+  const AUTOSTART_SPEED = 86400;        // simuleringen startar med 1 dygn per sekund
 
   const state = {
     trackers: [], trackerId: null,
@@ -554,6 +555,7 @@
       state.current = d;
       renderSheet();
       renderTicker();
+      maybeAutostart();
     } catch (e) {
       console.warn("tracker current:", e);
       if (!state.current) setTimeout(loadCurrent, 10000);   // beräkningen kan pågå vid kallstart
@@ -588,6 +590,23 @@
   };
   document.addEventListener("fullscreenchange", onFullscreen);
   document.addEventListener("webkitfullscreenchange", onFullscreen);
+
+  // ---------- Autostart ----------
+  // Direkt efter laddningsskärmen startar kvartalets simulering i 1D/S — en gång,
+  // så att ett senare klick på SIMULERA (tillbaka till LIVE) respekteras.
+  let autostarted = false;
+  let bootDone = !window.atlasBoot || Boolean(window.atlasBootDone);
+  function maybeAutostart() {
+    const l = layer();
+    if (autostarted || !bootDone || !l || !state.current) return;
+    autostarted = true;
+    l.setSpeed(AUTOSTART_SPEED);
+    if (l.mode !== "sim") l.setMode("sim", { since: state.current.start_ts, until: Date.now() / 1000 });
+  }
+  window.addEventListener("atlas:boot-done", () => {
+    bootDone = true;
+    maybeAutostart();
+  });
 
   // ---------- Start ----------
   if (layer()) {

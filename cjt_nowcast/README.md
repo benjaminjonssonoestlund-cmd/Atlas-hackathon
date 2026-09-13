@@ -26,6 +26,7 @@ python -m cjt_nowcast surprise     # samma tabell: prognos ÖVER/UNDER konsensus
 python -m cjt_nowcast sample       # snabbläge: Q3-nowcast på veckodagsmatchade stickprovsdagar
 python -m cjt_nowcast level        # nivåkontroll: ADS-B-timmar (uppskalade) mot rapporterade per kvartal
 python -m cjt_nowcast track        # löpande insamling av Q3-blocktimmar per dag (körs med nohup)
+python -m cjt_nowcast ui           # andra UI:t → http://127.0.0.1:8061 (Atlas-trackern kör på 8060)
 python -m cjt_nowcast nowcast      # 2026Q3 på alla dagar (kräver full extraktion)
 .venv/bin/python -m pytest tests/test_nowcast_*.py
 ```
