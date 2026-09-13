@@ -11,4 +11,8 @@ atlas_choke/data/_sar_work/
 atlas_choke/data/cargojet/
 
 # CJT-nowcast: råa källsvar och härledda tabeller (reproducerbara via python -m cjt_nowcast)
-cjt_nowcast/data/
+cjt_nowcast/data/*
+!cjt_nowcast/data/processed/
+cjt_nowcast/data/processed/*
+# ...utom de små tabeller som servern läser (History-fliken, blocktimmar)
+!cjt_nowcast/data/processed/*.csv

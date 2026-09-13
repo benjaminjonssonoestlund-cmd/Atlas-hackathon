@@ -18,5 +18,9 @@ atlas_choke/data/health.json
 atlas_choke/data/live_history.json
 atlas_choke/data/_sar_work/
 atlas_choke/data/cargojet/
-cjt_nowcast/data/
+cjt_nowcast/data/raw/
+cjt_nowcast/data/logs/
+cjt_nowcast/data/processed/mda_text/
+cjt_nowcast/data/processed/track/
+cjt_nowcast/data/processed/*.gz
 vessel_seen.json
